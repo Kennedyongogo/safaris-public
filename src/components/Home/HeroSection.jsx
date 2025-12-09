@@ -1,32 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Typography, Box, Container, Tooltip, Button, Fade, Slide } from "@mui/material";
-import Hero1 from "../../assets/images/foundation1.jpg";
-import Hero2 from "../../assets/images/foundation2.jpg";
-import Hero3 from "../../assets/images/foundation3.jpg";
-import { School, VolunteerActivism, Psychology, ArrowForward, RecordVoiceOver } from "@mui/icons-material";
+import {
+  Typography,
+  Box,
+  Container,
+  Tooltip,
+  Button,
+  Fade,
+  Slide,
+} from "@mui/material";
+import { CameraAlt, Terrain, Explore, ArrowForward } from "@mui/icons-material";
 
 export default function HeroSection() {
   const navigate = useNavigate();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const images = [Hero1, Hero2, Hero3];
+  const videoRefs = useRef([]);
+  const videos = [
+    "/videos/14850335_2160_3840_30fps.mp4",
+    "/videos/11760755-uhd_2160_4096_30fps.mp4",
+    "/videos/5446310-hd_1920_1080_30fps.mp4",
+    "/videos/3842816-uhd_3840_2160_30fps.mp4",
+    "/videos/4829604-uhd_3840_2160_30fps.mp4",
+    "/videos/3196505-sd_960_540_30fps.mp4",
+  ];
 
   useEffect(() => {
     setIsVisible(true);
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+    }, 10000); // Change video every 10 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [videos.length]);
+
+  useEffect(() => {
+    // Play the current video and pause others
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === currentVideoIndex) {
+          video.currentTime = 0; // Reset to start
+          video.play().catch((error) => {
+            console.log("Video play error:", error);
+          });
+        } else {
+          video.pause();
+        }
+      }
+    });
+  }, [currentVideoIndex]);
 
   const handleExploreAboutUs = () => {
-    navigate('/about-us');
-  };
-
-  const handleOpenCeoMessage = () => {
-    navigate('/ceo-message');
+    navigate("/about-us");
   };
 
   return (
@@ -40,37 +65,33 @@ export default function HeroSection() {
         marginTop: "-64px",
       }}
     >
-      {/* Background Images with Enhanced Overlay */}
-      {images.map((image, index) => (
+      {/* Background Videos */}
+      {videos.map((video, index) => (
         <Box
           key={index}
-          component="img"
-          src={image}
-          alt={`${index + 1}`}
+          component="video"
+          ref={(el) => (videoRefs.current[index] = el)}
+          src={video}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
           sx={{
             position: "absolute",
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            filter: "brightness(0.4) saturate(1.2)",
-            opacity: currentImageIndex === index ? 1 : 0,
-            transition: "opacity 1.5s ease-in-out",
+            objectPosition: "center",
+            pointerEvents: "none",
+            opacity: currentVideoIndex === index ? 1 : 0,
+            zIndex: currentVideoIndex === index ? 0 : -1,
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
         />
       ))}
-
-      {/* Enhanced Gradient Overlay */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: "linear-gradient(135deg, rgba(33, 150, 243, 0.3) 0%, rgba(76, 175, 80, 0.2) 50%, rgba(255, 152, 0, 0.2) 100%)",
-          zIndex: 1,
-        }}
-      />
 
       {/* Floating Particles Animation */}
       <Box
@@ -122,44 +143,56 @@ export default function HeroSection() {
         }}
       >
         <Fade in={isVisible} timeout={1000}>
-        <Box
-          sx={{
+          <Box
+            sx={{
               maxWidth: "700px",
               animation: "slideInUp 1.2s ease-out",
-          }}
-        >
-          <Typography
-            variant="h1"
-            sx={{
-                fontSize: { xs: "2rem", sm: "2.5rem", md: "3.5rem", lg: "4rem" },
+            }}
+          >
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: {
+                  xs: "2rem",
+                  sm: "2.5rem",
+                  md: "3.5rem",
+                  lg: "4rem",
+                },
                 fontWeight: 700,
-              mb: 2,
+                mb: 2,
                 textShadow: "3px 3px 6px rgba(0,0,0,0.4)",
                 background: "linear-gradient(45deg, #ffffff 30%, #e3f2fd 90%)",
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 lineHeight: 1.1,
-            }}
-          >
-            Welcome to Mwalimu Hope Foundation
-          </Typography>
-          <Typography
+              }}
+            >
+              Akira Safaris
+            </Typography>
+            <Typography
               variant="h4"
-            sx={{
-              mb: 4,
+              sx={{
+                mb: 4,
                 textShadow: "2px 2px 4px rgba(0,0,0,0.4)",
                 opacity: 0.95,
                 fontWeight: 400,
                 fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.6rem" },
                 color: "#e3f2fd",
-            }}
-          >
-            Empowering Minds, Restoring Hope
-          </Typography>
-            
+              }}
+            >
+              Discover the Wild Heart of Africa
+            </Typography>
+
             {/* Enhanced Call-to-Action Button */}
-            <Box sx={{ display: "flex", gap: 3, flexWrap: "wrap", mb: { xs: 6, sm: 5, md: 4 } }}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 3,
+                flexWrap: "wrap",
+                mb: { xs: 6, sm: 5, md: 4 },
+              }}
+            >
               <Button
                 variant="contained"
                 color="primary"
@@ -172,7 +205,8 @@ export default function HeroSection() {
                   fontSize: "1.1rem",
                   fontWeight: 600,
                   borderRadius: "50px",
-                  background: "linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)",
+                  background:
+                    "linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)",
                   boxShadow: "0 8px 32px rgba(33, 150, 243, 0.3)",
                   transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                   "& .MuiButton-endIcon": {
@@ -181,7 +215,8 @@ export default function HeroSection() {
                   "&:hover": {
                     transform: "translateY(-3px) scale(1.05)",
                     boxShadow: "0 12px 40px rgba(33, 150, 243, 0.4)",
-                    background: "linear-gradient(45deg, #1976d2 30%, #1cb5e0 90%)",
+                    background:
+                      "linear-gradient(45deg, #1976d2 30%, #1cb5e0 90%)",
                   },
                   "&:focus": {
                     outline: "none",
@@ -193,173 +228,113 @@ export default function HeroSection() {
               >
                 Explore About Us
               </Button>
-              <Button
-                variant="outlined"
-                size="large"
-                startIcon={<RecordVoiceOver />}
-                onClick={handleOpenCeoMessage}
-                sx={{
-                  px: 2,
-                  py: 0.75,
-                  fontSize: "1.1rem",
-                  fontWeight: 600,
-                  borderRadius: "50px",
-                  borderColor: "rgba(255, 255, 255, 0.8)",
-                  color: "white",
-                  borderWidth: 2,
-                  backdropFilter: "blur(10px)",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                  "& .MuiButton-startIcon": {
-                    marginRight: 0.5,
-                  },
-                  "&:hover": {
-                    transform: "translateY(-3px) scale(1.05)",
-                    borderColor: "white",
-                    backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    boxShadow: "0 12px 40px rgba(255, 255, 255, 0.2)",
-                  },
-                  "&:focus": {
-                    outline: "none",
-                  },
-                  "&:focus-visible": {
-                    outline: "none",
-                  },
-                }}
-              >
-                CEO's Message
-              </Button>
             </Box>
-
-            {/* Stats Counter */}
-            <Box
-              sx={{
-                display: "flex",
-                gap: { xs: 2, sm: 3, md: 4 },
-                flexWrap: "wrap",
-                mb: 6,
-                mt: { xs: 2, sm: 1, md: 0 },
-                "& > *": {
-                  textAlign: "center",
-                  "& .number": {
-                    fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.8rem" },
-                    fontWeight: 700,
-                    color: "#2196f3",
-                    textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-                  },
-                  "& .label": {
-                    fontSize: { xs: "0.65rem", sm: "0.75rem", md: "0.8rem" },
-                    opacity: 0.9,
-                    textTransform: "uppercase",
-                    letterSpacing: { xs: "0.5px", md: "1px" },
-                  },
-                },
-              }}
-            >
-              <Box>
-                <Typography className="number">500+</Typography>
-                <Typography className="label">Lives Changed</Typography>
-              </Box>
-              <Box>
-                <Typography className="number">50+</Typography>
-                <Typography className="label">Communities</Typography>
-              </Box>
-              <Box>
-                <Typography className="number">1000+</Typography>
-                <Typography className="label">Volunteers</Typography>
-          </Box>
-        </Box>
           </Box>
         </Fade>
       </Box>
 
       {/* Enhanced Feature Icons */}
       <Slide direction="up" in={isVisible} timeout={1500}>
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "center",
-          gap: 4,
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            display: "flex",
+            justifyContent: "center",
+            gap: 4,
             p: 2.5,
             backgroundColor: "rgba(0,0,0,0.6)",
             backdropFilter: "blur(10px)",
             borderTop: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
-          <Tooltip title="Educational Support" arrow>
-          <Box
-            sx={{
-              display: "flex",
+          <Tooltip title="Safari Tours" arrow>
+            <Box
+              sx={{
+                display: "flex",
                 flexDirection: "column",
-              alignItems: "center",
-              gap: 1,
-              color: "white",
+                alignItems: "center",
+                gap: 1,
+                color: "white",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 cursor: "pointer",
-              "&:hover": {
+                "&:hover": {
                   transform: "translateY(-8px) scale(1.1)",
                   "& .icon": {
                     color: "#2196f3",
                     transform: "rotate(360deg)",
                   },
-              },
-            }}
-          >
-              <School className="icon" sx={{ fontSize: 28, transition: "all 0.4s ease" }} />
-              <Typography sx={{ fontWeight: 500, fontSize: "0.8rem" }}>Educational Support</Typography>
-          </Box>
-        </Tooltip>
-          <Tooltip title="Community Outreach" arrow>
-          <Box
-            sx={{
-              display: "flex",
+                },
+              }}
+            >
+              <CameraAlt
+                className="icon"
+                sx={{ fontSize: 28, transition: "all 0.4s ease" }}
+              />
+              <Typography sx={{ fontWeight: 500, fontSize: "0.8rem" }}>
+                Safari Tours
+              </Typography>
+            </Box>
+          </Tooltip>
+          <Tooltip title="Wildlife Viewing" arrow>
+            <Box
+              sx={{
+                display: "flex",
                 flexDirection: "column",
-              alignItems: "center",
-              gap: 1,
-              color: "white",
+                alignItems: "center",
+                gap: 1,
+                color: "white",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 cursor: "pointer",
-              "&:hover": {
+                "&:hover": {
                   transform: "translateY(-8px) scale(1.1)",
                   "& .icon": {
                     color: "#4caf50",
                     transform: "rotate(360deg)",
                   },
-              },
-            }}
-          >
-              <VolunteerActivism className="icon" sx={{ fontSize: 28, transition: "all 0.4s ease" }} />
-              <Typography sx={{ fontWeight: 500, fontSize: "0.8rem" }}>Community Outreach</Typography>
-          </Box>
-        </Tooltip>
-          <Tooltip title="Mental Health Support" arrow>
-          <Box
-            sx={{
-              display: "flex",
+                },
+              }}
+            >
+              <Terrain
+                className="icon"
+                sx={{ fontSize: 28, transition: "all 0.4s ease" }}
+              />
+              <Typography sx={{ fontWeight: 500, fontSize: "0.8rem" }}>
+                Wildlife Viewing
+              </Typography>
+            </Box>
+          </Tooltip>
+          <Tooltip title="Adventure Tours" arrow>
+            <Box
+              sx={{
+                display: "flex",
                 flexDirection: "column",
-              alignItems: "center",
-              gap: 1,
-              color: "white",
+                alignItems: "center",
+                gap: 1,
+                color: "white",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 cursor: "pointer",
-              "&:hover": {
+                "&:hover": {
                   transform: "translateY(-8px) scale(1.1)",
                   "& .icon": {
                     color: "#ff9800",
                     transform: "rotate(360deg)",
                   },
-              },
-            }}
-          >
-              <Psychology className="icon" sx={{ fontSize: 28, transition: "all 0.4s ease" }} />
-              <Typography sx={{ fontWeight: 500, fontSize: "0.8rem" }}>Mental Health Support</Typography>
-          </Box>
-        </Tooltip>
-      </Box>
+                },
+              }}
+            >
+              <Explore
+                className="icon"
+                sx={{ fontSize: 28, transition: "all 0.4s ease" }}
+              />
+              <Typography sx={{ fontWeight: 500, fontSize: "0.8rem" }}>
+                Adventure Tours
+              </Typography>
+            </Box>
+          </Tooltip>
+        </Box>
       </Slide>
 
       <style>

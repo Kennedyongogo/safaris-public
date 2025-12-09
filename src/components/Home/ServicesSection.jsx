@@ -396,7 +396,7 @@ export default function ServicesSection() {
                 },
               }}
             >
-              Our Mission
+              Our Destinations
             </Typography>
             <Typography
               variant="h5"
@@ -411,8 +411,8 @@ export default function ServicesSection() {
                 color: "text.primary",
               }}
             >
-              Mwalimu Hope Foundation is a charitable foundation established to champion education, 
-              mental health awareness, poverty alleviation, and community empowerment initiatives in Kenya.
+              Akira Safaris offers unforgettable wildlife experiences and safari adventures across Africa's most 
+              spectacular destinations. Discover the wild heart of Africa through our expertly crafted tours.
             </Typography>
             <Box sx={{ 
               display: "flex", 
@@ -423,7 +423,7 @@ export default function ServicesSection() {
               px: { xs: 1, sm: 0 }
             }}>
               <Chip
-                label="Empowering Minds"
+                label="Wildlife Safaris"
                 sx={{
                   background: "linear-gradient(45deg, #2196f3, #21cbf3)",
                   color: "white",
@@ -434,7 +434,7 @@ export default function ServicesSection() {
                 }}
               />
               <Chip
-                label="Restoring Hope"
+                label="Adventure Tours"
                 sx={{
                   background: "linear-gradient(45deg, #e91e63, #f06292)",
                   color: "white",
@@ -445,7 +445,7 @@ export default function ServicesSection() {
                 }}
               />
               <Chip
-                label="Building Kenya's Future"
+                label="Nature Experiences"
                 sx={{
                   background: "linear-gradient(45deg, #4caf50, #81c784)",
                   color: "white",
