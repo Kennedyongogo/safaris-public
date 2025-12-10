@@ -29,6 +29,7 @@ import {
   LocalHospital,
   Groups,
   RateReview,
+  Place,
 } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -49,9 +50,10 @@ export default function PublicHeader() {
         color: "#2196f3",
       },
       {
-        label: "Our Mission",
-        icon: <Favorite />,
+        label: "Destinations",
+        icon: <Place />,
         sectionId: "mission-section",
+        route: "/destinations",
         color: "#e91e63",
       },
       {
@@ -91,8 +93,10 @@ export default function PublicHeader() {
 
       // Detect active section based on scroll position
       if (location.pathname === "/") {
-        // Get all sections in the order they appear on the page
-        const sectionIds = navItems.map((item) => item.sectionId);
+        // Get all sections in the order they appear on the page (exclude items with routes)
+        const sectionIds = navItems
+          .filter((item) => !item.route && item.sectionId)
+          .map((item) => item.sectionId);
         const sections = sectionIds
           .map((id) => {
             const element = document.getElementById(id);
@@ -125,6 +129,9 @@ export default function PublicHeader() {
             break;
           }
         }
+      } else if (location.pathname === "/destinations") {
+        // Set Destinations as active when on destinations page
+        setActiveSection("mission-section");
       }
     };
 
@@ -135,9 +142,17 @@ export default function PublicHeader() {
 
   const isActive = (path) => location.pathname === path;
 
-  const handleNavigateToSection = (sectionId) => {
+  const handleNavigateToSection = (item) => {
     setMobileMenuOpen(false);
-    // Set active section immediately when clicked
+    
+    // If item has a route, navigate to that route
+    if (item.route) {
+      navigate(item.route);
+      return;
+    }
+
+    // Otherwise, handle section scrolling
+    const sectionId = item.sectionId;
     setActiveSection(sectionId);
     setIsNavigating(true);
 
@@ -260,7 +275,9 @@ export default function PublicHeader() {
             >
               {navItems.map((item, index) => {
                 const isActiveItem =
-                  activeSection === item.sectionId && location.pathname === "/";
+                  item.route
+                    ? location.pathname === item.route
+                    : activeSection === item.sectionId && location.pathname === "/";
                 return (
                   <Slide
                     direction="down"
@@ -269,7 +286,7 @@ export default function PublicHeader() {
                     key={item.label}
                   >
                     <Button
-                      onClick={() => handleNavigateToSection(item.sectionId)}
+                      onClick={() => handleNavigateToSection(item)}
                       startIcon={item.icon}
                       disableRipple
                       sx={{
@@ -490,12 +507,14 @@ export default function PublicHeader() {
           <List sx={{ py: 0 }}>
             {navItems.map((item, index) => {
               const isActiveItem =
-                activeSection === item.sectionId && location.pathname === "/";
+                item.route
+                  ? location.pathname === item.route
+                  : activeSection === item.sectionId && location.pathname === "/";
               return (
                 <ListItem
                   key={item.label}
                   button
-                  onClick={() => handleNavigateToSection(item.sectionId)}
+                  onClick={() => handleNavigateToSection(item)}
                   disableRipple
                   sx={{
                     borderRadius: "12px",

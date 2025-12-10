@@ -222,7 +222,7 @@ export default function HeroSection() {
                   },
                 }}
               >
-                Explore About Us
+                Book Your Safari
               </Button>
             </Box>
           </Box>

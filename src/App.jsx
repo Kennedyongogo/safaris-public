@@ -24,6 +24,8 @@ const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
 const TeamMemberDetail = lazy(() => import("./pages/TeamMemberDetail"));
 const AboutUs = lazy(() => import("./pages/AboutUs"));
 const CEOMessage = lazy(() => import("./pages/CEOMessage"));
+const DestinationDetails = lazy(() => import("./pages/DestinationDetails"));
+const Destinations = lazy(() => import("./pages/Destinations"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -93,6 +95,26 @@ function App() {
                 <>
                   <PublicHeader />
                   <TeamMemberDetail />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/destinations"
+              element={
+                <>
+                  <PublicHeader />
+                  <Destinations />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/destination/:id"
+              element={
+                <>
+                  <PublicHeader />
+                  <DestinationDetails />
                   <Footer />
                 </>
               }

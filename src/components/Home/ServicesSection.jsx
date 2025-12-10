@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -14,10 +15,8 @@ import {
   useMediaQuery,
   useTheme,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
+  Paper,
+  Container,
 } from "@mui/material";
 import {
   School,
@@ -29,7 +28,9 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowForward,
-  Close as CloseIcon,
+  LocationOn,
+  Schedule,
+  People,
 } from "@mui/icons-material";
 
 // Category configuration mapping
@@ -278,6 +279,13 @@ const MissionCard = ({
                   backgroundColor: config.color,
                   color: "white",
                 },
+                "&:focus": {
+                  outline: "none",
+                },
+                "&:focus-visible": {
+                  outline: "none",
+                  boxShadow: "none",
+                },
               }}
             >
               View More
@@ -289,106 +297,138 @@ const MissionCard = ({
   );
 };
 
+// Dummy destination data
+const dummyDestinations = [
+  {
+    id: 1,
+    title: "Maasai Mara National Reserve",
+    description:
+      "Experience the Great Migration and witness the Big Five in their natural habitat. Home to over 1.5 million wildebeest, zebras, and gazelles.",
+    image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800",
+    location: "Narok County, Kenya",
+    duration: "3-5 Days",
+    bestTime: "July - October",
+    wildlife: "Big Five, Great Migration",
+    highlights: ["Game Drives", "Hot Air Balloon Safari", "Cultural Visits"],
+  },
+  {
+    id: 2,
+    title: "Amboseli National Park",
+    description:
+      "Famous for its large elephant herds and stunning views of Mount Kilimanjaro. A photographer's paradise with diverse wildlife and breathtaking landscapes.",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+    location: "Kajiado County, Kenya",
+    duration: "2-4 Days",
+    bestTime: "June - September",
+    wildlife: "Elephants, Lions, Cheetahs",
+    highlights: [
+      "Elephant Viewing",
+      "Mount Kilimanjaro Views",
+      "Bird Watching",
+    ],
+  },
+  {
+    id: 3,
+    title: "Samburu National Reserve",
+    description:
+      "Discover unique wildlife species found only in northern Kenya, including the Grevy's zebra, Somali ostrich, and reticulated giraffe.",
+    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800",
+    location: "Samburu County, Kenya",
+    duration: "3-4 Days",
+    bestTime: "January - March, July - October",
+    wildlife: "Grevy's Zebra, Reticulated Giraffe",
+    highlights: ["Special Five", "River Safaris", "Cultural Experiences"],
+  },
+];
+
 export default function ServicesSection() {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
-  const [missionCategories, setMissionCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [missionCategories, setMissionCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedMission, setSelectedMission] = useState(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [missionDetails, setMissionDetails] = useState(null);
-  const [loadingDetails, setLoadingDetails] = useState(false);
+  // Commented out dialog-related state
+  // const [currentIndex, setCurrentIndex] = useState(0);
+  // const [selectedMission, setSelectedMission] = useState(null);
+  // const [dialogOpen, setDialogOpen] = useState(false);
+  // const [missionDetails, setMissionDetails] = useState(null);
+  // const [loadingDetails, setLoadingDetails] = useState(false);
+
+  // Use dummy data instead of API
+  const missionCategories = dummyDestinations;
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+  // const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
-  // Determine how many cards to show based on screen size
-  const cardsToShow = isMobile ? 1 : isTablet ? 2 : 3;
-  const maxIndex = Math.max(0, missionCategories.length - cardsToShow);
+  // Commented out - showing all 3 cards
+  // const cardsToShow = isMobile ? 1 : isTablet ? 2 : 3;
+  // const maxIndex = Math.max(0, missionCategories.length - cardsToShow);
 
   useEffect(() => {
     setIsVisible(true);
-    fetchMissionCategories();
+    // fetchMissionCategories(); // Commented out - using dummy data
   }, []);
 
-  const fetchMissionCategories = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch("/api/mission-categories/public");
+  // Commented out API fetch logic
+  // const fetchMissionCategories = async () => {
+  //   try {
+  //     setLoading(true);
+  //     setError(null);
+  //     const response = await fetch("/api/mission-categories/public");
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
 
-      const result = await response.json();
+  //     const result = await response.json();
 
-      if (result.success && result.data) {
-        setMissionCategories(result.data);
-      } else {
-        throw new Error(result.message || "Failed to fetch mission categories");
-      }
-    } catch (err) {
-      console.error("Error fetching mission categories:", err);
-      setError(err.message);
-      setMissionCategories([]);
-    } finally {
-      setLoading(false);
-    }
+  //     if (result.success && result.data) {
+  //       setMissionCategories(result.data);
+  //     } else {
+  //       throw new Error(result.message || "Failed to fetch mission categories");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching mission categories:", err);
+  //     setError(err.message);
+  //     setMissionCategories([]);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // Commented out navigation functions - showing all 3 cards
+  // const handlePrevious = () => {
+  //   setCurrentIndex((prev) => Math.max(0, prev - 1));
+  // };
+
+  // const handleNext = () => {
+  //   setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+  // };
+
+  // const getVisibleCategories = () => {
+  //   return missionCategories.slice(currentIndex, currentIndex + cardsToShow);
+  // };
+
+  const handleViewMore = (destination) => {
+    // Navigate to destination details page (from home page)
+    navigate(`/destination/${destination.id}`, { state: { from: "/" } });
   };
 
-  const handlePrevious = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-  };
-
-  const getVisibleCategories = () => {
-    return missionCategories.slice(currentIndex, currentIndex + cardsToShow);
-  };
-
-  const handleViewMore = async (category) => {
-    setSelectedMission(category);
-    setDialogOpen(true);
-    setLoadingDetails(true);
-
-    try {
-      const response = await fetch(
-        `/api/mission-categories/public/${category.id}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch mission details");
-      }
-      const data = await response.json();
-      if (data.success && data.data) {
-        setMissionDetails(data.data);
-      } else {
-        setMissionDetails(category); // Fallback to category data
-      }
-    } catch (err) {
-      console.error("Error fetching mission details:", err);
-      setMissionDetails(category); // Fallback to category data
-    } finally {
-      setLoadingDetails(false);
-    }
-  };
-
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-    setSelectedMission(null);
-    setMissionDetails(null);
-  };
+  // Commented out dialog handlers - using page navigation instead
+  // const handleCloseDialog = () => {
+  //   setDialogOpen(false);
+  //   setSelectedMission(null);
+  //   setMissionDetails(null);
+  // };
 
   return (
     <Box
       id="mission-section"
       sx={{
-        py: 6,
-        px: { xs: 2, sm: 3, md: 4 },
+        pt: 1.5,
+        pb: 3,
+        px: 0,
         bgcolor: "background.paper",
         background:
           "linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(248, 250, 252, 0.9) 100%)",
@@ -407,24 +447,33 @@ export default function ServicesSection() {
         },
       }}
     >
-      <Card
+      <Container
+        maxWidth="xl"
         sx={{
-          maxWidth: "1300px",
-          margin: "0 auto",
           position: "relative",
           zIndex: 1,
-          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-          borderRadius: 3,
-          overflow: "hidden",
+          px: { xs: 1.5, sm: 1.5, md: 1.5 },
+          pt: { xs: 1.5, sm: 1.5, md: 1.5 },
         }}
       >
-        <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+        <Paper
+          elevation={3}
+          sx={{
+            py: { xs: 1.5, sm: 2, md: 2.5 },
+            px: { xs: 1.5, sm: 1.5, md: 1.5 },
+            borderRadius: { xs: 3, md: 4 },
+            background: "white",
+            border: "1px solid #e0e0e0",
+            minHeight: "auto",
+            height: "auto",
+          }}
+        >
           <Fade in={isVisible} timeout={1000}>
-            <Box sx={{ textAlign: "center", mb: 4 }}>
+            <Box sx={{ textAlign: "center", mb: 2 }}>
               <Typography
                 variant="h2"
                 sx={{
-                  mb: 2,
+                  mb: 1,
                   fontWeight: 800,
                   fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2.2rem" },
                   background:
@@ -447,12 +496,12 @@ export default function ServicesSection() {
                   },
                 }}
               >
-                Safari Destinations
+                Safari Destination
               </Typography>
               <Typography
                 variant="h5"
                 sx={{
-                  mb: 2,
+                  mb: 1,
                   maxWidth: { xs: "100%", sm: "800px", md: "900px" },
                   mx: "auto",
                   px: { xs: 1, sm: 0 },
@@ -462,10 +511,9 @@ export default function ServicesSection() {
                   color: "text.primary",
                 }}
               >
-                Akira Safaris offers unforgettable wildlife experiences and
-                safari adventures across Africa's most spectacular destinations.
-                Discover the wild heart of Africa through our expertly crafted
-                tours.
+                Discover the breathtaking beauty of Kenya's wildlife and
+                landscapes through our curated safari destinations, offering
+                unforgettable adventures and authentic cultural experiences.
               </Typography>
               <Box
                 sx={{
@@ -473,12 +521,12 @@ export default function ServicesSection() {
                   justifyContent: "center",
                   gap: { xs: 1, sm: 1.5, md: 2 },
                   flexWrap: "wrap",
-                  mb: 3,
+                  mb: 1.5,
                   px: { xs: 1, sm: 0 },
                 }}
               >
                 <Chip
-                  label="Wildlife Safaris"
+                  label="Wildlife Adventures"
                   sx={{
                     background: "linear-gradient(45deg, #2196f3, #21cbf3)",
                     color: "white",
@@ -489,7 +537,7 @@ export default function ServicesSection() {
                   }}
                 />
                 <Chip
-                  label="Adventure Tours"
+                  label="Nature Exploration"
                   sx={{
                     background: "linear-gradient(45deg, #e91e63, #f06292)",
                     color: "white",
@@ -500,7 +548,7 @@ export default function ServicesSection() {
                   }}
                 />
                 <Chip
-                  label="Nature Experiences"
+                  label="Cultural Experiences"
                   sx={{
                     background: "linear-gradient(45deg, #4caf50, #81c784)",
                     color: "white",
@@ -538,317 +586,242 @@ export default function ServicesSection() {
               </Box>
             ) : (
               <Box>
-                {/* Navigation Controls */}
-                {missionCategories.length > cardsToShow && (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      mb: 3,
-                    }}
-                  >
-                    <IconButton
-                      onClick={handlePrevious}
-                      disabled={currentIndex === 0}
-                      sx={{
-                        backgroundColor: "primary.main",
-                        color: "white",
-                        "&:hover": {
-                          backgroundColor: "primary.dark",
-                        },
-                        "&:disabled": {
-                          backgroundColor: "grey.300",
-                          color: "grey.500",
-                        },
-                      }}
-                    >
-                      <ChevronLeft />
-                    </IconButton>
-
-                    <Typography variant="body1" color="text.secondary">
-                      Showing {currentIndex + 1}-
-                      {Math.min(
-                        currentIndex + cardsToShow,
-                        missionCategories.length
-                      )}{" "}
-                      of {missionCategories.length} categories
-                    </Typography>
-
-                    <IconButton
-                      onClick={handleNext}
-                      disabled={currentIndex >= maxIndex}
-                      sx={{
-                        backgroundColor: "primary.main",
-                        color: "white",
-                        "&:hover": {
-                          backgroundColor: "primary.dark",
-                        },
-                        "&:disabled": {
-                          backgroundColor: "grey.300",
-                          color: "grey.500",
-                        },
-                      }}
-                    >
-                      <ChevronRight />
-                    </IconButton>
-                  </Box>
-                )}
-
-                {/* Mission Categories Grid */}
+                {/* Destination Cards Grid - Project Style */}
                 <Grid
                   container
                   spacing={{ xs: 2, sm: 2.5, md: 3 }}
                   justifyContent="center"
                 >
-                  {getVisibleCategories().map((category, index) => {
-                    const config =
-                      categoryConfig[category.category] ||
-                      categoryConfig.educational_support;
-                    const IconComponent = config.icon;
+                  {missionCategories.map((destination, index) => (
+                    <Grid
+                      size={{
+                        xs: 12,
+                        sm: 6,
+                        md: 4,
+                      }}
+                      key={destination.id}
+                    >
+                      <Slide
+                        direction="up"
+                        in={isVisible}
+                        timeout={800 + index * 200}
+                      >
+                        <Card
+                          sx={{
+                            height: { xs: "480px", sm: "520px" },
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            transition:
+                              "transform 0.3s ease, box-shadow 0.3s ease",
+                            "&:hover": {
+                              transform: "translateY(-8px)",
+                              boxShadow: "0 12px 40px rgba(0,0,0,0.15)",
+                            },
+                          }}
+                        >
+                          {/* Image Section */}
+                          <Box
+                            sx={{
+                              position: "relative",
+                              height: isMobile ? "180px" : "220px",
+                              width: "100%",
+                              overflow: "hidden",
+                              backgroundColor: "#f5f5f5",
+                            }}
+                          >
+                            <Box
+                              component="img"
+                              src={destination.image}
+                              alt={destination.title}
+                              sx={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                                display: "block",
+                              }}
+                              onError={(e) => {
+                                e.target.src = "/foundation-logo.png";
+                              }}
+                            />
+                          </Box>
 
-                    return (
-                      <MissionCard
-                        key={category.id || index}
-                        category={category}
-                        config={config}
-                        IconComponent={IconComponent}
-                        isVisible={isVisible}
-                        index={currentIndex + index}
-                        onViewMore={handleViewMore}
-                      />
-                    );
-                  })}
+                          <CardContent
+                            sx={{
+                              flexGrow: 1,
+                              p: { xs: 2, sm: 3 },
+                              display: "flex",
+                              flexDirection: "column",
+                              minHeight: { xs: "260px", sm: "300px" },
+                            }}
+                          >
+                            <Box sx={{ mb: { xs: 1, sm: 2 } }}>
+                              <Chip
+                                label="Safari Destination"
+                                color="primary"
+                                size="small"
+                                sx={{ mb: { xs: 1, sm: 1.5 } }}
+                              />
+                              <Typography
+                                variant="h6"
+                                component="h3"
+                                sx={{
+                                  fontWeight: 600,
+                                  mb: { xs: 0.5, sm: 1 },
+                                  color: "text.primary",
+                                  fontSize: { xs: "1rem", sm: "1.25rem" },
+                                }}
+                              >
+                                {destination.title}
+                              </Typography>
+                            </Box>
+
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              sx={{
+                                mb: { xs: 1, sm: 2 },
+                                overflow: "hidden",
+                                display: "-webkit-box",
+                                WebkitLineClamp: 2,
+                                WebkitBoxOrient: "vertical",
+                                lineHeight: 1.4,
+                                flexGrow: 1,
+                                fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                              }}
+                            >
+                              {destination.description}
+                            </Typography>
+
+                            <Box sx={{ mb: { xs: 0.5, sm: 1 } }}>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 0.5,
+                                  mb: { xs: 0.25, sm: 0.5 },
+                                }}
+                              >
+                                <LocationOn
+                                  sx={{
+                                    fontSize: { xs: 12, sm: 14 },
+                                    color: "primary.main",
+                                  }}
+                                />
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  sx={{
+                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                  }}
+                                >
+                                  {destination.location}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 0.5,
+                                  mb: { xs: 0.25, sm: 0.5 },
+                                }}
+                              >
+                                <Schedule
+                                  sx={{
+                                    fontSize: { xs: 12, sm: 14 },
+                                    color: "primary.main",
+                                  }}
+                                />
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  sx={{
+                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                  }}
+                                >
+                                  Duration: {destination.duration}
+                                </Typography>
+                              </Box>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 0.5,
+                                  mb: { xs: 0.25, sm: 0.5 },
+                                }}
+                              >
+                                <People
+                                  sx={{
+                                    fontSize: { xs: 12, sm: 14 },
+                                    color: "primary.main",
+                                  }}
+                                />
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  sx={{
+                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                  }}
+                                >
+                                  Best Time: {destination.bestTime}
+                                </Typography>
+                              </Box>
+                            </Box>
+
+                            <Box sx={{ mt: "auto", pt: { xs: 0.5, sm: 1 } }}>
+                              <Button
+                                variant="outlined"
+                                size="small"
+                                fullWidth
+                                endIcon={<ArrowForward />}
+                                onClick={() => handleViewMore(destination)}
+                                sx={{
+                                  borderColor: "primary.main",
+                                  color: "primary.main",
+                                  fontSize: "0.875rem",
+                                  py: 1,
+                                  "&:hover": {
+                                    borderColor: "primary.dark",
+                                    backgroundColor: "primary.light",
+                                    color: "white",
+                                  },
+                                }}
+                              >
+                                View Details
+                              </Button>
+                            </Box>
+                          </CardContent>
+                        </Card>
+                      </Slide>
+                    </Grid>
+                  ))}
                 </Grid>
 
-                {/* Page Indicators */}
-                {missionCategories.length > cardsToShow && (
-                  <Box
+                {/* View All Destinations Button */}
+                <Box sx={{ textAlign: "center", mt: 4 }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    onClick={() => navigate("/destinations")}
                     sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: 1,
-                      mt: 4,
+                      backgroundColor: "#FF6B35",
+                      color: "white",
+                      fontWeight: 600,
+                      px: 4,
+                      py: 1.5,
+                      "&:hover": {
+                        backgroundColor: "#FF8C42",
+                      },
                     }}
                   >
-                    {Array.from({
-                      length: Math.ceil(missionCategories.length / cardsToShow),
-                    }).map((_, index) => (
-                      <Box
-                        key={index}
-                        onClick={() => setCurrentIndex(index * cardsToShow)}
-                        sx={{
-                          width: 12,
-                          height: 12,
-                          borderRadius: "50%",
-                          backgroundColor:
-                            Math.floor(currentIndex / cardsToShow) === index
-                              ? "primary.main"
-                              : "grey.300",
-                          cursor: "pointer",
-                          transition: "background-color 0.3s ease",
-                          "&:hover": {
-                            backgroundColor: "primary.light",
-                          },
-                        }}
-                      />
-                    ))}
-                  </Box>
-                )}
+                    View All Destinations
+                  </Button>
+                </Box>
               </Box>
             )}
           </Box>
-        </Box>
-      </Card>
-
-      {/* Mission Detail Dialog */}
-      <Dialog
-        open={dialogOpen}
-        onClose={handleCloseDialog}
-        maxWidth="md"
-        fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: 3,
-            maxHeight: "90vh",
-          },
-        }}
-      >
-        {missionDetails && (
-          <>
-            <DialogTitle
-              sx={{
-                background: (theme) => {
-                  const config =
-                    categoryConfig[missionDetails.category] ||
-                    categoryConfig.educational_support;
-                  return config.gradient;
-                },
-                color: "white",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                pb: 2,
-              }}
-            >
-              <Box display="flex" alignItems="center" gap={2}>
-                {(() => {
-                  const config =
-                    categoryConfig[missionDetails.category] ||
-                    categoryConfig.educational_support;
-                  const IconComponent = config.icon;
-                  return <IconComponent sx={{ fontSize: 32 }} />;
-                })()}
-                <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                  {missionDetails.title}
-                </Typography>
-              </Box>
-              <IconButton
-                onClick={handleCloseDialog}
-                sx={{
-                  color: "white",
-                  "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  },
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent sx={{ p: 0 }}>
-              {/* Images */}
-              {missionDetails.images &&
-                Array.isArray(missionDetails.images) &&
-                missionDetails.images.length > 0 && (
-                  <Box
-                    sx={{
-                      width: "100%",
-                      height: { xs: "200px", sm: "300px" },
-                      overflow: "hidden",
-                      position: "relative",
-                    }}
-                  >
-                    <img
-                      src={buildImageUrl(
-                        typeof missionDetails.images[0] === "object"
-                          ? missionDetails.images[0].path
-                          : missionDetails.images[0]
-                      )}
-                      alt={missionDetails.title}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </Box>
-                )}
-
-              <Box sx={{ p: 3 }}>
-                {/* Impact Chip */}
-                {missionDetails.impact && (
-                  <Box
-                    sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}
-                  >
-                    <Chip
-                      label={missionDetails.impact}
-                      sx={{
-                        backgroundColor: (() => {
-                          const config =
-                            categoryConfig[missionDetails.category] ||
-                            categoryConfig.educational_support;
-                          return config.color;
-                        })(),
-                        color: "white",
-                        fontWeight: 600,
-                      }}
-                    />
-                  </Box>
-                )}
-
-                {/* Description */}
-                <Typography
-                  variant="body1"
-                  sx={{
-                    whiteSpace: "pre-wrap",
-                    lineHeight: 1.8,
-                    color: "text.primary",
-                    mb: 2,
-                  }}
-                >
-                  {missionDetails.description}
-                </Typography>
-
-                {/* Additional Images Gallery */}
-                {missionDetails.images &&
-                  Array.isArray(missionDetails.images) &&
-                  missionDetails.images.length > 1 && (
-                    <>
-                      <Box
-                        sx={{ mt: 3, pt: 2, borderTop: "1px solid #e0e0e0" }}
-                      >
-                        <Typography variant="h6" gutterBottom>
-                          More Images
-                        </Typography>
-                        <Grid container spacing={2} sx={{ mt: 1 }}>
-                          {missionDetails.images
-                            .slice(1)
-                            .map((imageObj, index) => {
-                              const imagePath =
-                                typeof imageObj === "object"
-                                  ? imageObj.path
-                                  : imageObj;
-                              return (
-                                <Grid item xs={12} sm={6} key={index}>
-                                  <img
-                                    src={buildImageUrl(imagePath)}
-                                    alt={`${missionDetails.title} - Image ${index + 2}`}
-                                    style={{
-                                      width: "100%",
-                                      height: "200px",
-                                      objectFit: "cover",
-                                      borderRadius: "8px",
-                                    }}
-                                  />
-                                </Grid>
-                              );
-                            })}
-                        </Grid>
-                      </Box>
-                    </>
-                  )}
-              </Box>
-            </DialogContent>
-            <DialogActions sx={{ p: 2, pt: 0 }}>
-              <Button
-                onClick={handleCloseDialog}
-                variant="contained"
-                sx={{
-                  background: (() => {
-                    const config =
-                      categoryConfig[missionDetails.category] ||
-                      categoryConfig.educational_support;
-                    return config.gradient;
-                  })(),
-                  color: "white",
-                  "&:hover": {
-                    opacity: 0.9,
-                  },
-                }}
-              >
-                Close
-              </Button>
-            </DialogActions>
-          </>
-        )}
-        {loadingDetails && (
-          <DialogContent
-            sx={{ display: "flex", justifyContent: "center", py: 8 }}
-          >
-            <CircularProgress />
-          </DialogContent>
-        )}
-      </Dialog>
+        </Paper>
+      </Container>
     </Box>
   );
 }
