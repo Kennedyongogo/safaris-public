@@ -17,12 +17,8 @@ export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const videoRefs = useRef([]);
   const videos = [
-    "/videos/14850335_2160_3840_30fps.mp4",
-    "/videos/11760755-uhd_2160_4096_30fps.mp4",
     "/videos/5446310-hd_1920_1080_30fps.mp4",
-    "/videos/3842816-uhd_3840_2160_30fps.mp4",
     "/videos/4829604-uhd_3840_2160_30fps.mp4",
-    "/videos/3196505-sd_960_540_30fps.mp4",
   ];
 
   useEffect(() => {
