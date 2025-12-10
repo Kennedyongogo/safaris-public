@@ -1,5 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Grid, Card, CardContent, CardMedia, Fade, Slide, Chip, CircularProgress, IconButton, useMediaQuery, useTheme, Button, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Fade,
+  Slide,
+  Chip,
+  CircularProgress,
+  IconButton,
+  useMediaQuery,
+  useTheme,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import {
   School,
   Psychology,
@@ -57,17 +76,30 @@ const buildImageUrl = (imagePath) => {
 };
 
 // Mission Card Component
-const MissionCard = ({ category, config, IconComponent, isVisible, index, onViewMore }) => {
+const MissionCard = ({
+  category,
+  config,
+  IconComponent,
+  isVisible,
+  index,
+  onViewMore,
+}) => {
   const [imageError, setImageError] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Get all images from the category
   const getAllImages = () => {
-    if (category.images && Array.isArray(category.images) && category.images.length > 0) {
-      return category.images.map((img) => {
-        const path = typeof img === 'object' ? img.path : img;
-        return buildImageUrl(path);
-      }).filter(url => url); // Filter out empty URLs
+    if (
+      category.images &&
+      Array.isArray(category.images) &&
+      category.images.length > 0
+    ) {
+      return category.images
+        .map((img) => {
+          const path = typeof img === "object" ? img.path : img;
+          return buildImageUrl(path);
+        })
+        .filter((url) => url); // Filter out empty URLs
     }
     return [];
   };
@@ -155,7 +187,10 @@ const MissionCard = ({ category, config, IconComponent, isVisible, index, onView
                           width: currentImageIndex === idx ? 20 : 6,
                           height: 6,
                           borderRadius: "3px",
-                          backgroundColor: currentImageIndex === idx ? "white" : "rgba(255, 255, 255, 0.5)",
+                          backgroundColor:
+                            currentImageIndex === idx
+                              ? "white"
+                              : "rgba(255, 255, 255, 0.5)",
                           transition: "all 0.3s ease",
                         }}
                       />
@@ -283,13 +318,13 @@ export default function ServicesSection() {
       setLoading(true);
       setError(null);
       const response = await fetch("/api/mission-categories/public");
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const result = await response.json();
-      
+
       if (result.success && result.data) {
         setMissionCategories(result.data);
       } else {
@@ -320,9 +355,11 @@ export default function ServicesSection() {
     setSelectedMission(category);
     setDialogOpen(true);
     setLoadingDetails(true);
-    
+
     try {
-      const response = await fetch(`/api/mission-categories/public/${category.id}`);
+      const response = await fetch(
+        `/api/mission-categories/public/${category.id}`
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch mission details");
       }
@@ -349,11 +386,12 @@ export default function ServicesSection() {
   return (
     <Box
       id="mission-section"
-      sx={{ 
-        py: 6, 
-        px: { xs: 2, sm: 3, md: 4 }, 
+      sx={{
+        py: 6,
+        px: { xs: 2, sm: 3, md: 4 },
         bgcolor: "background.paper",
-        background: "linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(248, 250, 252, 0.9) 100%)",
+        background:
+          "linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(248, 250, 252, 0.9) 100%)",
         position: "relative",
         overflow: "hidden",
         "&::before": {
@@ -363,233 +401,265 @@ export default function ServicesSection() {
           left: 0,
           right: 0,
           bottom: 0,
-          background: "radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.1) 0%, transparent 50%)",
+          background:
+            "radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.1) 0%, transparent 50%)",
           zIndex: 0,
         },
       }}
     >
-      <Box sx={{ maxWidth: "1300px", margin: "0 auto", position: "relative", zIndex: 1 }}>
-        <Fade in={isVisible} timeout={1000}>
-          <Box sx={{ textAlign: "center", mb: 4 }}>
-            <Typography
-              variant="h2"
-              sx={{
-                mb: 2,
-                fontWeight: 800,
-                fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2.2rem" },
-                background: "linear-gradient(45deg, #2196f3, #e91e63, #4caf50)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                textShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                position: "relative",
-                "&::after": {
-                  content: '""',
-                  position: "absolute",
-                  bottom: "-8px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: { xs: "60px", sm: "70px", md: "80px" },
-                  height: "4px",
-                  background: "linear-gradient(45deg, #2196f3, #e91e63)",
-                  borderRadius: "2px",
-                },
-              }}
-            >
-              Our Destinations
-            </Typography>
-            <Typography
-              variant="h5"
-              sx={{ 
-                mb: 2, 
-                maxWidth: { xs: "100%", sm: "800px", md: "900px" }, 
-                mx: "auto",
-                px: { xs: 1, sm: 0 },
-                fontWeight: 500,
-                fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1rem" },
-                lineHeight: 1.6,
-                color: "text.primary",
-              }}
-            >
-              Akira Safaris offers unforgettable wildlife experiences and safari adventures across Africa's most 
-              spectacular destinations. Discover the wild heart of Africa through our expertly crafted tours.
-            </Typography>
-            <Box sx={{ 
-              display: "flex", 
-              justifyContent: "center", 
-              gap: { xs: 1, sm: 1.5, md: 2 }, 
-              flexWrap: "wrap", 
-              mb: 3,
-              px: { xs: 1, sm: 0 }
-            }}>
-              <Chip
-                label="Wildlife Safaris"
+      <Card
+        sx={{
+          maxWidth: "1300px",
+          margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
+          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+          borderRadius: 3,
+          overflow: "hidden",
+        }}
+      >
+        <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+          <Fade in={isVisible} timeout={1000}>
+            <Box sx={{ textAlign: "center", mb: 4 }}>
+              <Typography
+                variant="h2"
                 sx={{
-                  background: "linear-gradient(45deg, #2196f3, #21cbf3)",
-                  color: "white",
-                  fontWeight: 600,
-                  px: { xs: 1.5, sm: 2 },
-                  py: 1,
-                  fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
+                  mb: 2,
+                  fontWeight: 800,
+                  fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2.2rem" },
+                  background:
+                    "linear-gradient(45deg, #2196f3, #e91e63, #4caf50)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  textShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                  position: "relative",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    bottom: "-8px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: { xs: "60px", sm: "70px", md: "80px" },
+                    height: "4px",
+                    background: "linear-gradient(45deg, #2196f3, #e91e63)",
+                    borderRadius: "2px",
+                  },
                 }}
-              />
-              <Chip
-                label="Adventure Tours"
-                sx={{
-                  background: "linear-gradient(45deg, #e91e63, #f06292)",
-                  color: "white",
-                  fontWeight: 600,
-                  px: { xs: 1.5, sm: 2 },
-                  py: 1,
-                  fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
-                }}
-              />
-              <Chip
-                label="Nature Experiences"
-                sx={{
-                  background: "linear-gradient(45deg, #4caf50, #81c784)",
-                  color: "white",
-                  fontWeight: 600,
-                  px: { xs: 1.5, sm: 2 },
-                  py: 1,
-                  fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
-                }}
-              />
-            </Box>
-          </Box>
-        </Fade>
-
-        <Box sx={{ position: "relative" }}>
-          {loading ? (
-            <Box display="flex" justifyContent="center" alignItems="center" py={8}>
-              <CircularProgress />
-            </Box>
-          ) : error ? (
-            <Box textAlign="center" py={4}>
-              <Typography color="error" variant="body1">
-                {error}
+              >
+                Safari Destinations
               </Typography>
-            </Box>
-          ) : missionCategories.length === 0 ? (
-            <Box textAlign="center" py={4}>
-              <Typography color="text.secondary" variant="body1">
-                No mission categories available at the moment.
+              <Typography
+                variant="h5"
+                sx={{
+                  mb: 2,
+                  maxWidth: { xs: "100%", sm: "800px", md: "900px" },
+                  mx: "auto",
+                  px: { xs: 1, sm: 0 },
+                  fontWeight: 500,
+                  fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1rem" },
+                  lineHeight: 1.6,
+                  color: "text.primary",
+                }}
+              >
+                Akira Safaris offers unforgettable wildlife experiences and
+                safari adventures across Africa's most spectacular destinations.
+                Discover the wild heart of Africa through our expertly crafted
+                tours.
               </Typography>
-            </Box>
-          ) : (
-            <Box>
-              {/* Navigation Controls */}
-              {missionCategories.length > cardsToShow && (
-                <Box
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: { xs: 1, sm: 1.5, md: 2 },
+                  flexWrap: "wrap",
+                  mb: 3,
+                  px: { xs: 1, sm: 0 },
+                }}
+              >
+                <Chip
+                  label="Wildlife Safaris"
                   sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    mb: 3,
+                    background: "linear-gradient(45deg, #2196f3, #21cbf3)",
+                    color: "white",
+                    fontWeight: 600,
+                    px: { xs: 1.5, sm: 2 },
+                    py: 1,
+                    fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
                   }}
-                >
-                  <IconButton
-                    onClick={handlePrevious}
-                    disabled={currentIndex === 0}
+                />
+                <Chip
+                  label="Adventure Tours"
+                  sx={{
+                    background: "linear-gradient(45deg, #e91e63, #f06292)",
+                    color: "white",
+                    fontWeight: 600,
+                    px: { xs: 1.5, sm: 2 },
+                    py: 1,
+                    fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
+                  }}
+                />
+                <Chip
+                  label="Nature Experiences"
+                  sx={{
+                    background: "linear-gradient(45deg, #4caf50, #81c784)",
+                    color: "white",
+                    fontWeight: 600,
+                    px: { xs: 1.5, sm: 2 },
+                    py: 1,
+                    fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
+                  }}
+                />
+              </Box>
+            </Box>
+          </Fade>
+
+          <Box sx={{ position: "relative" }}>
+            {loading ? (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                py={8}
+              >
+                <CircularProgress />
+              </Box>
+            ) : error ? (
+              <Box textAlign="center" py={4}>
+                <Typography color="error" variant="body1">
+                  {error}
+                </Typography>
+              </Box>
+            ) : missionCategories.length === 0 ? (
+              <Box textAlign="center" py={4}>
+                <Typography color="text.secondary" variant="body1">
+                  No mission categories available at the moment.
+                </Typography>
+              </Box>
+            ) : (
+              <Box>
+                {/* Navigation Controls */}
+                {missionCategories.length > cardsToShow && (
+                  <Box
                     sx={{
-                      backgroundColor: "primary.main",
-                      color: "white",
-                      "&:hover": {
-                        backgroundColor: "primary.dark",
-                      },
-                      "&:disabled": {
-                        backgroundColor: "grey.300",
-                        color: "grey.500",
-                      },
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 3,
                     }}
                   >
-                    <ChevronLeft />
-                  </IconButton>
-
-                  <Typography variant="body1" color="text.secondary">
-                    Showing {currentIndex + 1}-
-                    {Math.min(currentIndex + cardsToShow, missionCategories.length)} of{" "}
-                    {missionCategories.length} categories
-                  </Typography>
-
-                  <IconButton
-                    onClick={handleNext}
-                    disabled={currentIndex >= maxIndex}
-                    sx={{
-                      backgroundColor: "primary.main",
-                      color: "white",
-                      "&:hover": {
-                        backgroundColor: "primary.dark",
-                      },
-                      "&:disabled": {
-                        backgroundColor: "grey.300",
-                        color: "grey.500",
-                      },
-                    }}
-                  >
-                    <ChevronRight />
-                  </IconButton>
-                </Box>
-              )}
-
-              {/* Mission Categories Grid */}
-              <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }} justifyContent="center">
-                {getVisibleCategories().map((category, index) => {
-                  const config = categoryConfig[category.category] || categoryConfig.educational_support;
-                  const IconComponent = config.icon;
-                  
-                  return (
-                    <MissionCard
-                      key={category.id || index}
-                      category={category}
-                      config={config}
-                      IconComponent={IconComponent}
-                      isVisible={isVisible}
-                      index={currentIndex + index}
-                      onViewMore={handleViewMore}
-                    />
-                  );
-                })}
-              </Grid>
-
-              {/* Page Indicators */}
-              {missionCategories.length > cardsToShow && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    gap: 1,
-                    mt: 4,
-                  }}
-                >
-                  {Array.from({
-                    length: Math.ceil(missionCategories.length / cardsToShow),
-                  }).map((_, index) => (
-                    <Box
-                      key={index}
-                      onClick={() => setCurrentIndex(index * cardsToShow)}
+                    <IconButton
+                      onClick={handlePrevious}
+                      disabled={currentIndex === 0}
                       sx={{
-                        width: 12,
-                        height: 12,
-                        borderRadius: "50%",
-                        backgroundColor:
-                          Math.floor(currentIndex / cardsToShow) === index
-                            ? "primary.main"
-                            : "grey.300",
-                        cursor: "pointer",
-                        transition: "background-color 0.3s ease",
+                        backgroundColor: "primary.main",
+                        color: "white",
                         "&:hover": {
-                          backgroundColor: "primary.light",
+                          backgroundColor: "primary.dark",
+                        },
+                        "&:disabled": {
+                          backgroundColor: "grey.300",
+                          color: "grey.500",
                         },
                       }}
-                    />
-                  ))}
-                </Box>
-              )}
-            </Box>
-          )}
+                    >
+                      <ChevronLeft />
+                    </IconButton>
+
+                    <Typography variant="body1" color="text.secondary">
+                      Showing {currentIndex + 1}-
+                      {Math.min(
+                        currentIndex + cardsToShow,
+                        missionCategories.length
+                      )}{" "}
+                      of {missionCategories.length} categories
+                    </Typography>
+
+                    <IconButton
+                      onClick={handleNext}
+                      disabled={currentIndex >= maxIndex}
+                      sx={{
+                        backgroundColor: "primary.main",
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "primary.dark",
+                        },
+                        "&:disabled": {
+                          backgroundColor: "grey.300",
+                          color: "grey.500",
+                        },
+                      }}
+                    >
+                      <ChevronRight />
+                    </IconButton>
+                  </Box>
+                )}
+
+                {/* Mission Categories Grid */}
+                <Grid
+                  container
+                  spacing={{ xs: 2, sm: 2.5, md: 3 }}
+                  justifyContent="center"
+                >
+                  {getVisibleCategories().map((category, index) => {
+                    const config =
+                      categoryConfig[category.category] ||
+                      categoryConfig.educational_support;
+                    const IconComponent = config.icon;
+
+                    return (
+                      <MissionCard
+                        key={category.id || index}
+                        category={category}
+                        config={config}
+                        IconComponent={IconComponent}
+                        isVisible={isVisible}
+                        index={currentIndex + index}
+                        onViewMore={handleViewMore}
+                      />
+                    );
+                  })}
+                </Grid>
+
+                {/* Page Indicators */}
+                {missionCategories.length > cardsToShow && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: 1,
+                      mt: 4,
+                    }}
+                  >
+                    {Array.from({
+                      length: Math.ceil(missionCategories.length / cardsToShow),
+                    }).map((_, index) => (
+                      <Box
+                        key={index}
+                        onClick={() => setCurrentIndex(index * cardsToShow)}
+                        sx={{
+                          width: 12,
+                          height: 12,
+                          borderRadius: "50%",
+                          backgroundColor:
+                            Math.floor(currentIndex / cardsToShow) === index
+                              ? "primary.main"
+                              : "grey.300",
+                          cursor: "pointer",
+                          transition: "background-color 0.3s ease",
+                          "&:hover": {
+                            backgroundColor: "primary.light",
+                          },
+                        }}
+                      />
+                    ))}
+                  </Box>
+                )}
+              </Box>
+            )}
+          </Box>
         </Box>
-      </Box>
+      </Card>
 
       {/* Mission Detail Dialog */}
       <Dialog
@@ -609,7 +679,9 @@ export default function ServicesSection() {
             <DialogTitle
               sx={{
                 background: (theme) => {
-                  const config = categoryConfig[missionDetails.category] || categoryConfig.educational_support;
+                  const config =
+                    categoryConfig[missionDetails.category] ||
+                    categoryConfig.educational_support;
                   return config.gradient;
                 },
                 color: "white",
@@ -621,7 +693,9 @@ export default function ServicesSection() {
             >
               <Box display="flex" alignItems="center" gap={2}>
                 {(() => {
-                  const config = categoryConfig[missionDetails.category] || categoryConfig.educational_support;
+                  const config =
+                    categoryConfig[missionDetails.category] ||
+                    categoryConfig.educational_support;
                   const IconComponent = config.icon;
                   return <IconComponent sx={{ fontSize: 32 }} />;
                 })()}
@@ -643,36 +717,46 @@ export default function ServicesSection() {
             </DialogTitle>
             <DialogContent sx={{ p: 0 }}>
               {/* Images */}
-              {missionDetails.images && Array.isArray(missionDetails.images) && missionDetails.images.length > 0 && (
-                <Box
-                  sx={{
-                    width: "100%",
-                    height: { xs: "200px", sm: "300px" },
-                    overflow: "hidden",
-                    position: "relative",
-                  }}
-                >
-                  <img
-                    src={buildImageUrl(typeof missionDetails.images[0] === 'object' ? missionDetails.images[0].path : missionDetails.images[0])}
-                    alt={missionDetails.title}
-                    style={{
+              {missionDetails.images &&
+                Array.isArray(missionDetails.images) &&
+                missionDetails.images.length > 0 && (
+                  <Box
+                    sx={{
                       width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
+                      height: { xs: "200px", sm: "300px" },
+                      overflow: "hidden",
+                      position: "relative",
                     }}
-                  />
-                </Box>
-              )}
+                  >
+                    <img
+                      src={buildImageUrl(
+                        typeof missionDetails.images[0] === "object"
+                          ? missionDetails.images[0].path
+                          : missionDetails.images[0]
+                      )}
+                      alt={missionDetails.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                )}
 
               <Box sx={{ p: 3 }}>
                 {/* Impact Chip */}
                 {missionDetails.impact && (
-                  <Box sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}>
+                  <Box
+                    sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}
+                  >
                     <Chip
                       label={missionDetails.impact}
                       sx={{
                         backgroundColor: (() => {
-                          const config = categoryConfig[missionDetails.category] || categoryConfig.educational_support;
+                          const config =
+                            categoryConfig[missionDetails.category] ||
+                            categoryConfig.educational_support;
                           return config.color;
                         })(),
                         color: "white",
@@ -696,34 +780,43 @@ export default function ServicesSection() {
                 </Typography>
 
                 {/* Additional Images Gallery */}
-                {missionDetails.images && Array.isArray(missionDetails.images) && missionDetails.images.length > 1 && (
-                  <>
-                    <Box sx={{ mt: 3, pt: 2, borderTop: "1px solid #e0e0e0" }}>
-                      <Typography variant="h6" gutterBottom>
-                        More Images
-                      </Typography>
-                      <Grid container spacing={2} sx={{ mt: 1 }}>
-                        {missionDetails.images.slice(1).map((imageObj, index) => {
-                          const imagePath = typeof imageObj === "object" ? imageObj.path : imageObj;
-                          return (
-                            <Grid item xs={12} sm={6} key={index}>
-                              <img
-                                src={buildImageUrl(imagePath)}
-                                alt={`${missionDetails.title} - Image ${index + 2}`}
-                                style={{
-                                  width: "100%",
-                                  height: "200px",
-                                  objectFit: "cover",
-                                  borderRadius: "8px",
-                                }}
-                              />
-                            </Grid>
-                          );
-                        })}
-                      </Grid>
-                    </Box>
-                  </>
-                )}
+                {missionDetails.images &&
+                  Array.isArray(missionDetails.images) &&
+                  missionDetails.images.length > 1 && (
+                    <>
+                      <Box
+                        sx={{ mt: 3, pt: 2, borderTop: "1px solid #e0e0e0" }}
+                      >
+                        <Typography variant="h6" gutterBottom>
+                          More Images
+                        </Typography>
+                        <Grid container spacing={2} sx={{ mt: 1 }}>
+                          {missionDetails.images
+                            .slice(1)
+                            .map((imageObj, index) => {
+                              const imagePath =
+                                typeof imageObj === "object"
+                                  ? imageObj.path
+                                  : imageObj;
+                              return (
+                                <Grid item xs={12} sm={6} key={index}>
+                                  <img
+                                    src={buildImageUrl(imagePath)}
+                                    alt={`${missionDetails.title} - Image ${index + 2}`}
+                                    style={{
+                                      width: "100%",
+                                      height: "200px",
+                                      objectFit: "cover",
+                                      borderRadius: "8px",
+                                    }}
+                                  />
+                                </Grid>
+                              );
+                            })}
+                        </Grid>
+                      </Box>
+                    </>
+                  )}
               </Box>
             </DialogContent>
             <DialogActions sx={{ p: 2, pt: 0 }}>
@@ -732,7 +825,9 @@ export default function ServicesSection() {
                 variant="contained"
                 sx={{
                   background: (() => {
-                    const config = categoryConfig[missionDetails.category] || categoryConfig.educational_support;
+                    const config =
+                      categoryConfig[missionDetails.category] ||
+                      categoryConfig.educational_support;
                     return config.gradient;
                   })(),
                   color: "white",
@@ -747,7 +842,9 @@ export default function ServicesSection() {
           </>
         )}
         {loadingDetails && (
-          <DialogContent sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+          <DialogContent
+            sx={{ display: "flex", justifyContent: "center", py: 8 }}
+          >
             <CircularProgress />
           </DialogContent>
         )}
