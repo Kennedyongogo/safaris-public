@@ -20,10 +20,10 @@ import Chatbot from "./components/Chatbot/Chatbot";
 
 // Lazy load components
 const Home = lazy(() => import("./pages/Home"));
-const ProjectDetails = lazy(() => import("./pages/ProjectDetails"));
 const TeamMemberDetail = lazy(() => import("./pages/TeamMemberDetail"));
-const AboutUs = lazy(() => import("./pages/AboutUs"));
-const CEOMessage = lazy(() => import("./pages/CEOMessage"));
+const Team = lazy(() => import("./pages/Team"));
+const Reviews = lazy(() => import("./pages/Reviews"));
+const Plan = lazy(() => import("./pages/Plan"));
 const DestinationDetails = lazy(() => import("./pages/DestinationDetails"));
 const Destinations = lazy(() => import("./pages/Destinations"));
 
@@ -80,11 +80,11 @@ function App() {
               }
             />
             <Route
-              path="/project/:id"
+              path="/team"
               element={
                 <>
                   <PublicHeader />
-                  <ProjectDetails />
+                  <Team />
                   <Footer />
                 </>
               }
@@ -95,6 +95,26 @@ function App() {
                 <>
                   <PublicHeader />
                   <TeamMemberDetail />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/reviews"
+              element={
+                <>
+                  <PublicHeader />
+                  <Reviews />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/plan"
+              element={
+                <>
+                  <PublicHeader />
+                  <Plan />
                   <Footer />
                 </>
               }
@@ -115,26 +135,6 @@ function App() {
                 <>
                   <PublicHeader />
                   <DestinationDetails />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/about-us"
-              element={
-                <>
-                  <PublicHeader />
-                  <AboutUs />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/ceo-message"
-              element={
-                <>
-                  <PublicHeader />
-                  <CEOMessage />
                   <Footer />
                 </>
               }

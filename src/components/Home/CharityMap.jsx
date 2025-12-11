@@ -25,6 +25,7 @@ import {
   Chip,
   Paper,
   Divider,
+  Container,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import "ol/ol.css";
@@ -53,24 +54,129 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 
-// Project categories matching the API
-const PROJECT_CATEGORIES = {
-  volunteer: { label: "Volunteer Opportunities", color: "#4caf50" },
-  education: { label: "Educational Support", color: "#2196f3" },
-  mental_health: { label: "Mental Health Services", color: "#e91e63" },
-  community: { label: "Community Programs", color: "#ff9800" },
-  donation: { label: "Donations & Support", color: "#9c27b0" },
-  partnership: { label: "Partnership Opportunities", color: "#00bcd4" },
+// Lodge categories
+const LODGE_CATEGORIES = {
+  luxury: { label: "Luxury Lodges", color: "#d4af37" },
+  tented: { label: "Tented Camps", color: "#8b4513" },
+  eco: { label: "Eco Lodges", color: "#4caf50" },
+  boutique: { label: "Boutique Lodges", color: "#9c27b0" },
+  family: { label: "Family Friendly", color: "#2196f3" },
+  romantic: { label: "Romantic Getaways", color: "#e91e63" },
 };
 
-// Project status colors
-const STATUS_COLORS = {
-  pending: "#ff9800", // Orange
-  in_progress: "#4caf50", // Green
-  completed: "#2196f3", // Blue
-  on_hold: "#ff5722", // Deep Orange
-  cancelled: "#f44336", // Red
-};
+// Dummy lodge data
+const DUMMY_LODGES = [
+  {
+    id: 1,
+    name: "Serengeti Luxury Camp",
+    category: "luxury",
+    latitude: -2.1540,
+    longitude: 34.6857,
+    description: "Experience the ultimate luxury safari in the heart of Serengeti",
+    rating: 5,
+    price: "$800/night",
+    location: "Serengeti National Park, Tanzania",
+  },
+  {
+    id: 2,
+    name: "Maasai Mara Tented Camp",
+    category: "tented",
+    latitude: -1.4069,
+    longitude: 35.0111,
+    description: "Authentic tented camp experience with stunning wildlife views",
+    rating: 4.5,
+    price: "$450/night",
+    location: "Maasai Mara, Kenya",
+  },
+  {
+    id: 3,
+    name: "Amboseli Eco Lodge",
+    category: "eco",
+    latitude: -2.6531,
+    longitude: 37.2631,
+    description: "Sustainable eco-lodge with breathtaking views of Mount Kilimanjaro",
+    rating: 4.8,
+    price: "$350/night",
+    location: "Amboseli National Park, Kenya",
+  },
+  {
+    id: 4,
+    name: "Ngorongoro Boutique Lodge",
+    category: "boutique",
+    latitude: -3.1833,
+    longitude: 35.5500,
+    description: "Intimate boutique lodge overlooking the Ngorongoro Crater",
+    rating: 5,
+    price: "$650/night",
+    location: "Ngorongoro Conservation Area, Tanzania",
+  },
+  {
+    id: 5,
+    name: "Samburu Family Safari Lodge",
+    category: "family",
+    latitude: 0.5167,
+    longitude: 37.5333,
+    description: "Perfect for families with kids' programs and family-friendly activities",
+    rating: 4.7,
+    price: "$400/night",
+    location: "Samburu National Reserve, Kenya",
+  },
+  {
+    id: 6,
+    name: "Lake Nakuru Romantic Retreat",
+    category: "romantic",
+    latitude: -0.3667,
+    longitude: 36.0833,
+    description: "Intimate romantic getaway with private dining and spa services",
+    rating: 4.9,
+    price: "$550/night",
+    location: "Lake Nakuru National Park, Kenya",
+  },
+  {
+    id: 7,
+    name: "Tsavo Luxury Safari Lodge",
+    category: "luxury",
+    latitude: -2.9833,
+    longitude: 38.4667,
+    description: "World-class luxury accommodation in the heart of Tsavo",
+    rating: 5,
+    price: "$750/night",
+    location: "Tsavo National Park, Kenya",
+  },
+  {
+    id: 8,
+    name: "Kruger Tented Experience",
+    category: "tented",
+    latitude: -24.0115,
+    longitude: 31.4857,
+    description: "Authentic African tented camp in the famous Kruger National Park",
+    rating: 4.6,
+    price: "$420/night",
+    location: "Kruger National Park, South Africa",
+  },
+  {
+    id: 9,
+    name: "Okavango Delta Eco Camp",
+    category: "eco",
+    latitude: -19.2667,
+    longitude: 22.7333,
+    description: "Sustainable eco-camp in the pristine Okavango Delta",
+    rating: 4.8,
+    price: "$380/night",
+    location: "Okavango Delta, Botswana",
+  },
+  {
+    id: 10,
+    name: "Victoria Falls Boutique Lodge",
+    category: "boutique",
+    latitude: -17.9243,
+    longitude: 25.8572,
+    description: "Charming boutique lodge with views of the magnificent Victoria Falls",
+    rating: 4.9,
+    price: "$600/night",
+    location: "Victoria Falls, Zimbabwe",
+  },
+];
 
 const CharityMap = () => {
   const mapRef = useRef(null);
@@ -86,8 +192,8 @@ const CharityMap = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [tileLoadError, setTileLoadError] = useState(false);
   const [mapInitialized, setMapInitialized] = useState(false);
-  const [projects, setProjects] = useState([]);
-  const [selectedProjectDetails, setSelectedProjectDetails] = useState(null);
+  const [lodges, setLodges] = useState(DUMMY_LODGES);
+  const [selectedLodgeDetails, setSelectedLodgeDetails] = useState(null);
   const [tooltip, setTooltip] = useState({
     visible: false,
     content: "",
@@ -95,12 +201,12 @@ const CharityMap = () => {
     y: 0,
   });
   const [visibleCategories, setVisibleCategories] = useState({
-    volunteer: true,
-    education: true,
-    mental_health: true,
-    community: true,
-    donation: true,
-    partnership: true,
+    luxury: true,
+    tented: true,
+    eco: true,
+    boutique: true,
+    family: true,
+    romantic: true,
   });
 
   // Search and filter states
@@ -177,32 +283,32 @@ const CharityMap = () => {
     );
   };
 
-  // Find projects near user location
+  // Find lodges near user location
   const findNearMeProjects = () => {
     if (!userLocation) {
       getUserLocation();
       return;
     }
 
-    const dataToSearch = searchResults.length > 0 ? searchResults : projects;
-    const nearbyProjects = dataToSearch
+    const dataToSearch = searchResults.length > 0 ? searchResults : lodges;
+    const nearbyLodges = dataToSearch
       .filter(
-        (project) =>
-          project.longitude !== null && project.latitude !== null
+        (lodge) =>
+          lodge.longitude !== null && lodge.latitude !== null
       )
-      .map((project) => {
+      .map((lodge) => {
         const distance = calculateDistance(
           userLocation.latitude,
           userLocation.longitude,
-          parseFloat(project.latitude),
-          parseFloat(project.longitude)
+          parseFloat(lodge.latitude),
+          parseFloat(lodge.longitude)
         );
-        return { ...project, distance };
+        return { ...lodge, distance };
       })
-      .filter((project) => project.distance <= nearMeRadius)
+      .filter((lodge) => lodge.distance <= nearMeRadius)
       .sort((a, b) => a.distance - b.distance);
 
-    setNearMeResults(nearbyProjects);
+    setNearMeResults(nearbyLodges);
     setNearMeMode(true);
   };
 
@@ -271,8 +377,8 @@ const CharityMap = () => {
         target: mapRef.current,
         layers: [osmLayer, satelliteLayer, terrainLayer, vectorLayer],
         view: new View({
-          center: fromLonLat([36.8219, -1.2921]), // Center on Nairobi, Kenya
-          zoom: 7, // View to see projects across Kenya
+          center: fromLonLat([25, -5]), // Center on Africa
+          zoom: 5, // View to see lodges across Africa
         }),
         controls: defaultControls().extend([new ScaleLine(), new ZoomSlider()]),
       });
@@ -303,45 +409,42 @@ const CharityMap = () => {
     }
   }, [showMarker, mapInitialized]);
 
-  // Search projects function
+  // Search lodges function
   const searchProjects = async (query, column) => {
     setIsSearching(true);
     setSearchError(null);
 
     try {
-      const params = new URLSearchParams({
-        limit: 5000,
-      });
-
+      // Filter lodges based on search query
+      let filteredLodges = lodges;
+      
       if (query.trim()) {
-        if (column === "all") {
-          params.append("search", query);
-        } else {
-          params.append("searchColumn", column);
-          params.append("searchValue", query);
-        }
+        const searchLower = query.toLowerCase();
+        filteredLodges = lodges.filter((lodge) => {
+          if (column === "all") {
+            return (
+              lodge.name.toLowerCase().includes(searchLower) ||
+              lodge.location.toLowerCase().includes(searchLower) ||
+              lodge.category.toLowerCase().includes(searchLower) ||
+              lodge.description.toLowerCase().includes(searchLower)
+            );
+          } else if (column === "name") {
+            return lodge.name.toLowerCase().includes(searchLower);
+          } else if (column === "location") {
+            return lodge.location.toLowerCase().includes(searchLower);
+          } else if (column === "category") {
+            return lodge.category.toLowerCase().includes(searchLower);
+          } else if (column === "description") {
+            return lodge.description.toLowerCase().includes(searchLower);
+          }
+          return true;
+        });
       }
 
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `${API_BASE_URL}/public-projects?${params}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setSearchResults(data?.data || []);
-      return data?.data || [];
+      setSearchResults(filteredLodges);
+      return filteredLodges;
     } catch (error) {
-      console.error("Error searching projects:", error);
+      console.error("Error searching lodges:", error);
       setSearchError(error.message);
       setSearchResults([]);
       return [];
@@ -350,36 +453,10 @@ const CharityMap = () => {
     }
   };
 
-  // Fetch projects
+  // Initialize lodges (using dummy data)
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const token = localStorage.getItem("token");
-        const projectsResponse = await fetch(
-          `${API_BASE_URL}/public-projects?limit=5000`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!projectsResponse.ok) {
-          throw new Error(`HTTP error! status: ${projectsResponse.status}`);
-        }
-
-        const projectsData = await projectsResponse.json();
-        setProjects(projectsData?.data || []);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-        setProjects([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
+    setIsLoading(false);
+    setLodges(DUMMY_LODGES);
   }, []);
 
   // Debounced search effect
@@ -403,10 +480,10 @@ const CharityMap = () => {
 
       // Calculate bounds for all search results
       const coordinates = searchResults
-        .filter((project) => project.longitude && project.latitude)
-        .map((project) => [
-          parseFloat(project.longitude),
-          parseFloat(project.latitude),
+        .filter((lodge) => lodge.longitude && lodge.latitude)
+        .map((lodge) => [
+          parseFloat(lodge.longitude),
+          parseFloat(lodge.latitude),
         ]);
 
       if (coordinates.length > 0) {
@@ -482,8 +559,8 @@ const CharityMap = () => {
         const properties = feature.get("properties");
         const featureType = properties?.type;
 
-        if (featureType === "project") {
-          // Show tooltip for projects
+        if (featureType === "lodge") {
+          // Show tooltip for lodges
           const coordinate = event.coordinate;
           const pixel = map.getPixelFromCoordinate(coordinate);
           setTooltip({
@@ -534,9 +611,9 @@ const CharityMap = () => {
         const properties = feature.get("properties");
         const featureType = properties?.type;
 
-        if (featureType === "project") {
-          // Show project details in drawer
-          setSelectedProjectDetails(properties);
+        if (featureType === "lodge") {
+          // Show lodge details in drawer
+          setSelectedLodgeDetails(properties);
           setDrawerOpen(true);
         }
       }
@@ -549,113 +626,34 @@ const CharityMap = () => {
     };
   }, [mapInitialized, navigate]);
 
-  // Helper function to get status color
-  const getStatusColor = (status) => {
-    return STATUS_COLORS[status] || "#666";
-  };
-
-  // Helper function to get category marker
-  const getCategoryMarker = (
+  // Helper function to get lodge category marker
+  const getLodgeMarker = (
     category,
-    status,
     isSearchResult = false
   ) => {
-    const statusColor = getStatusColor(status);
-    const scale = isSearchResult ? 1.5 : 1.2;
+    const categoryColor = LODGE_CATEGORIES[category]?.color || "#666";
     const strokeWidth = isSearchResult ? 3 : 2;
     const outerRadius = isSearchResult ? 12 : 10;
 
     let svgIcon = "";
 
     switch (category) {
-      case "volunteer":
-        svgIcon = `
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="${outerRadius}" fill="${statusColor}" stroke="white" stroke-width="${strokeWidth}"/>
-            ${
-              isSearchResult
-                ? `<circle cx="12" cy="12" r="14" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>`
-                : ""
-            }
-            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="white"/>
-          </svg>
-        `;
-        break;
-      case "education":
-        svgIcon = `
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="${outerRadius}" fill="${statusColor}" stroke="white" stroke-width="${strokeWidth}"/>
-            ${
-              isSearchResult
-                ? `<circle cx="12" cy="12" r="14" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>`
-                : ""
-            }
-            <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" fill="white"/>
-          </svg>
-        `;
-        break;
-      case "donation":
-        svgIcon = `
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="${outerRadius}" fill="${statusColor}" stroke="white" stroke-width="${strokeWidth}"/>
-            ${
-              isSearchResult
-                ? `<circle cx="12" cy="12" r="14" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>`
-                : ""
-            }
-            <path d="M20.5 4c-2.61 0.45-5.59 1.22-8 2.5-2.41-1.28-5.39-2.05-8-2.5v11.5c2.61 0.45 5.59 1.22 8 2.5 2.41-1.28 5.39-2.05 8-2.5V4zm-8 10.92c-1.87-0.73-3.96-1.18-6-1.36V5.64c2.04 0.18 4.13 0.63 6 1.36v7.92z" fill="white"/>
-          </svg>
-        `;
-        break;
-      case "mental_health":
-        svgIcon = `
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="${outerRadius}" fill="${statusColor}" stroke="white" stroke-width="${strokeWidth}"/>
-            ${
-              isSearchResult
-                ? `<circle cx="12" cy="12" r="14" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>`
-                : ""
-            }
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="white"/>
-          </svg>
-        `;
-        break;
-      case "community":
-        svgIcon = `
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="${outerRadius}" fill="${statusColor}" stroke="white" stroke-width="${strokeWidth}"/>
-            ${
-              isSearchResult
-                ? `<circle cx="12" cy="12" r="14" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>`
-                : ""
-            }
-            <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" fill="white"/>
-          </svg>
-        `;
-        break;
-      case "partnership":
-        svgIcon = `
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="${outerRadius}" fill="${statusColor}" stroke="white" stroke-width="${strokeWidth}"/>
-            ${
-              isSearchResult
-                ? `<circle cx="12" cy="12" r="14" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>`
-                : ""
-            }
-            <path d="M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z" fill="white"/>
-          </svg>
-        `;
-        break;
+      case "luxury":
+      case "tented":
+      case "eco":
+      case "boutique":
+      case "family":
+      case "romantic":
       default:
         svgIcon = `
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="${outerRadius}" fill="${statusColor}" stroke="white" stroke-width="${strokeWidth}"/>
+            <circle cx="12" cy="12" r="${outerRadius}" fill="${categoryColor}" stroke="white" stroke-width="${strokeWidth}"/>
             ${
               isSearchResult
                 ? `<circle cx="12" cy="12" r="14" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.8"/>`
                 : ""
             }
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="white"/>
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="1.5" fill="none"/>
           </svg>
         `;
         break;
@@ -664,18 +662,18 @@ const CharityMap = () => {
     return svgIcon;
   };
 
-  // Create project markers
-  const createProjectMarkers = (projects, isSearchResult = false) => {
-    return projects
+  // Create lodge markers
+  const createLodgeMarkers = (lodges, isSearchResult = false) => {
+    return lodges
       .filter(
-        (project) =>
-          project.longitude !== null &&
-          project.latitude !== null &&
-          visibleCategories[project.category]
+        (lodge) =>
+          lodge.longitude !== null &&
+          lodge.latitude !== null &&
+          visibleCategories[lodge.category]
       )
-      .map((project) => {
-        const lon = parseFloat(project.longitude);
-        const lat = parseFloat(project.latitude);
+      .map((lodge) => {
+        const lon = parseFloat(lodge.longitude);
+        const lat = parseFloat(lodge.latitude);
 
         if (isNaN(lon) || isNaN(lat)) {
           return null;
@@ -684,16 +682,15 @@ const CharityMap = () => {
         const feature = new Feature({
           geometry: new Point(fromLonLat([lon, lat])),
           properties: {
-            ...project,
-            type: "project",
+            ...lodge,
+            type: "lodge",
             isSearchResult: isSearchResult,
           },
         });
 
         // Get category specific marker
-        const markerSvg = getCategoryMarker(
-          project.category,
-          project.status,
+        const markerSvg = getLodgeMarker(
+          lodge.category,
           isSearchResult
         );
 
@@ -751,13 +748,13 @@ const CharityMap = () => {
 
     // Clear existing markers
     const existingFeatures = vectorSource.getFeatures();
-    const projectFeatures = existingFeatures.filter(
-      (f) => f.get("properties")?.type === "project"
+    const lodgeFeatures = existingFeatures.filter(
+      (f) => f.get("properties")?.type === "lodge"
     );
     const userLocationFeatures = existingFeatures.filter(
       (f) => f.get("properties")?.type === "userLocation"
     );
-    projectFeatures.forEach((f) => vectorSource.removeFeature(f));
+    lodgeFeatures.forEach((f) => vectorSource.removeFeature(f));
     userLocationFeatures.forEach((f) => vectorSource.removeFeature(f));
 
     // Determine which data to show
@@ -767,14 +764,14 @@ const CharityMap = () => {
     } else if (searchResults.length > 0) {
       dataToShow = searchResults;
     } else {
-      dataToShow = projects;
+      dataToShow = lodges;
     }
 
-    // Add project markers
+    // Add lodge markers
     const isSearchResult =
       searchResults.length > 0 && dataToShow === searchResults;
-    const projectMarkers = createProjectMarkers(dataToShow, isSearchResult);
-    vectorSource.addFeatures(projectMarkers);
+    const lodgeMarkers = createLodgeMarkers(dataToShow, isSearchResult);
+    vectorSource.addFeatures(lodgeMarkers);
 
     // Add user location marker if available
     const userLocationMarker = createUserLocationMarker();
@@ -782,7 +779,7 @@ const CharityMap = () => {
       vectorSource.addFeature(userLocationMarker);
     }
   }, [
-    projects,
+    lodges,
     searchResults,
     mapInitialized,
     visibleCategories,
@@ -828,23 +825,23 @@ const CharityMap = () => {
   // Handle select all/deselect all
   const handleSelectAll = () => {
     setVisibleCategories({
-      volunteer: true,
-      education: true,
-      mental_health: true,
-      community: true,
-      donation: true,
-      partnership: true,
+      luxury: true,
+      tented: true,
+      eco: true,
+      boutique: true,
+      family: true,
+      romantic: true,
     });
   };
 
   const handleDeselectAll = () => {
     setVisibleCategories({
-      volunteer: false,
-      education: false,
-      mental_health: false,
-      community: false,
-      donation: false,
-      partnership: false,
+      luxury: false,
+      tented: false,
+      eco: false,
+      boutique: false,
+      family: false,
+      romantic: false,
     });
   };
 
@@ -881,7 +878,7 @@ const CharityMap = () => {
   // Get category counts
   const getCategoryCounts = () => {
     const counts = {};
-    const categories = Object.keys(PROJECT_CATEGORIES);
+    const categories = Object.keys(LODGE_CATEGORIES);
     let dataToCount;
 
     if (nearMeMode && nearMeResults.length > 0) {
@@ -889,15 +886,15 @@ const CharityMap = () => {
     } else if (searchResults.length > 0) {
       dataToCount = searchResults;
     } else {
-      dataToCount = projects;
+      dataToCount = lodges;
     }
 
     categories.forEach((category) => {
       counts[category] = dataToCount.filter(
-        (project) =>
-          project.category === category &&
-          project.longitude !== null &&
-          project.latitude !== null
+        (lodge) =>
+          lodge.category === category &&
+          lodge.longitude !== null &&
+          lodge.latitude !== null
       ).length;
     });
 
@@ -907,39 +904,81 @@ const CharityMap = () => {
   const categoryCounts = getCategoryCounts();
 
   return (
-    <>
-      {/* Search and Filter Controls */}
-      <Box
+    <Box
+      sx={{
+        py: { xs: 1, sm: 1.5, md: 2 },
+        position: "relative",
+        zIndex: 1,
+        background: "transparent",
+      }}
+    >
+      <Container
+        maxWidth="xl"
         sx={{
-          mb: 0.5,
-          p: 1,
-          backgroundColor: "#f8f9fa",
-          borderRadius: 1,
-          border: "1px solid #e0e0e0",
+          px: { xs: 1.5, sm: 1.5, md: 1.5 },
+          pt: { xs: 1.5, sm: 1.5, md: 1.5 },
+          position: "relative",
+          zIndex: 1,
         }}
       >
-        {/* Application Location Label and Near Me Controls */}
-        <Box
+        <Paper
+          elevation={3}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            mb: 0.5,
+            py: { xs: 1.5, sm: 2, md: 2.5 },
+            px: { xs: 1.5, sm: 1.5, md: 1.5 },
+            borderRadius: { xs: 3, md: 4 },
+            background: "white",
+            border: "1px solid #e0e0e0",
+            minHeight: "auto",
+            height: "auto",
           }}
         >
-          <Typography
-            variant="h6"
+          {/* Header Section */}
+          <Box sx={{ mb: { xs: 2, sm: 2.5, md: 3 }, textAlign: "center" }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 700,
+                mb: { xs: 1, md: 1.5 },
+                color: "#5D4037",
+                fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.5rem" },
+              }}
+            >
+              Only the best in Africa
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                mb: { xs: 1, md: 1.5 },
+                color: "text.primary",
+                fontSize: { xs: "0.875rem", md: "1rem" },
+                lineHeight: 1.7,
+              }}
+            >
+              We work closely with the most renowned lodges in Africa to make your dream trip unforgettable.
+            </Typography>
+          </Box>
+
+          {/* Search and Filter Controls */}
+          <Box
             sx={{
-              fontWeight: 600,
-              color: "#4caf50",
-              fontSize: { xs: "0.9rem", sm: "1.1rem" },
+              mb: 0.5,
+              p: 1,
+              backgroundColor: "#f8f9fa",
+              borderRadius: 1,
+              border: "1px solid #e0e0e0",
             }}
           >
-            Our Community Impact Map
-          </Typography>
-
-          {/* Near Me Controls */}
-          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            {/* Near Me Controls */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                mb: 0.5,
+                gap: 1,
+              }}
+            >
             {/* Near Me Button */}
             <Button
               variant={nearMeMode ? "contained" : "outlined"}
@@ -1048,10 +1087,9 @@ const CharityMap = () => {
               </Button>
             )}
           </Box>
-        </Box>
 
-        {/* Search Bar Row */}
-        <Box
+          {/* Search Bar Row */}
+          <Box
           sx={{
             display: "flex",
             gap: { xs: 1, sm: 1.5 },
@@ -1072,7 +1110,7 @@ const CharityMap = () => {
             {/* Search Input */}
             <TextField
               size="small"
-              placeholder="Search by project name, location, category..."
+              placeholder="Search by lodge name, location, category..."
               value={searchQuery}
               onChange={handleSearchChange}
               sx={{
@@ -1113,11 +1151,10 @@ const CharityMap = () => {
                 label="Search in"
               >
                 <MenuItem value="all">All Fields</MenuItem>
-                <MenuItem value="name">Project Name</MenuItem>
+                <MenuItem value="name">Lodge Name</MenuItem>
                 <MenuItem value="location">Location</MenuItem>
                 <MenuItem value="category">Category</MenuItem>
                 <MenuItem value="description">Description</MenuItem>
-                <MenuItem value="coordinates">Coordinates</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -1238,17 +1275,16 @@ const CharityMap = () => {
             )}
           </Box>
         </Box>
-      </Box>
+          </Box>
 
-      {/* Map Container */}
-
-      <Box
-        ref={mapRef}
-        sx={{
-          width: "100%",
-          height: "calc(100vh - 200px)",
-          position: "relative",
-          "& .ol-zoom": {
+          {/* Map Container */}
+          <Box
+            ref={mapRef}
+            sx={{
+              width: "100%",
+              height: "calc(100vh - 200px)",
+              position: "relative",
+              "& .ol-zoom": {
             top: "1em",
             left: "1em",
             background: "none",
@@ -1263,44 +1299,44 @@ const CharityMap = () => {
               height: "28px",
               lineHeight: "28px",
             },
-          },
-          // Remove animations that cause blinking
-          "& .ol-layer-animating": {
-            transition: "none",
-          },
-          "& .ol-layer": {
-            transition: "none",
-          },
-          "& .ol-tile": {
-            transition: "none",
-          },
-          "& .ol-tile-loading": {
-            opacity: 1,
-          },
-          "& .ol-tile-loaded": {
-            opacity: 1,
-          },
-          "& .ol-rotate": {
-            top: "4.5em",
-            right: "auto",
-            left: "1em",
-            background: "rgba(255,255,255,0.8)",
-            border: "1px solid #ccc",
-            borderRadius: "2px",
-            margin: "2px",
-            padding: 0,
-            "& button": {
-              width: "28px",
-              height: "28px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
             },
-          },
-          "& .ol-zoomslider": {
-            display: "none",
-          },
-        }}
+            // Remove animations that cause blinking
+            "& .ol-layer-animating": {
+              transition: "none",
+            },
+            "& .ol-layer": {
+              transition: "none",
+            },
+            "& .ol-tile": {
+              transition: "none",
+            },
+            "& .ol-tile-loading": {
+              opacity: 1,
+            },
+            "& .ol-tile-loaded": {
+              opacity: 1,
+            },
+            "& .ol-rotate": {
+              top: "4.5em",
+              right: "auto",
+              left: "1em",
+              background: "rgba(255,255,255,0.8)",
+              border: "1px solid #ccc",
+              borderRadius: "2px",
+              margin: "2px",
+              padding: 0,
+              "& button": {
+                width: "28px",
+                height: "28px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+            },
+            "& .ol-zoomslider": {
+              display: "none",
+            },
+          }}
       >
         {/* Tooltip */}
         {tooltip.visible && (
@@ -1352,9 +1388,9 @@ const CharityMap = () => {
             }}
           >
             <CircularProgress size={20} />
-            <Typography variant="caption" sx={{ color: "text.secondary" }}>
-              Loading projects...
-            </Typography>
+             <Typography variant="caption" sx={{ color: "text.secondary" }}>
+               Loading lodges...
+             </Typography>
           </Box>
         )}
 
@@ -1528,7 +1564,7 @@ const CharityMap = () => {
               color: "text.secondary",
             }}
           >
-            {nearMeMode ? "Projects Near You" : "Project Categories"}
+             {nearMeMode ? "Lodges Near You" : "Lodge Categories"}
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
             {Object.entries(visibleCategories).map(([category, isVisible]) => (
@@ -1548,10 +1584,10 @@ const CharityMap = () => {
                   sx={{
                     padding: 0.25,
                     "&.Mui-checked": {
-                      color: PROJECT_CATEGORIES[category]?.color,
+                      color: LODGE_CATEGORIES[category]?.color,
                     },
                     "&:hover": {
-                      backgroundColor: `${PROJECT_CATEGORIES[category]?.color}20`,
+                      backgroundColor: `${LODGE_CATEGORIES[category]?.color}20`,
                     },
                   }}
                 />
@@ -1560,7 +1596,7 @@ const CharityMap = () => {
                     width: 12,
                     height: 12,
                     borderRadius: "50%",
-                    backgroundColor: PROJECT_CATEGORIES[category]?.color,
+                    backgroundColor: LODGE_CATEGORIES[category]?.color,
                     mr: 0.5,
                     transition: "all 0.2s ease-in-out",
                     opacity: isVisible ? 1 : 0.5,
@@ -1576,7 +1612,7 @@ const CharityMap = () => {
                     flexGrow: 1,
                   }}
                 >
-                  {PROJECT_CATEGORIES[category]?.label}
+                  {LODGE_CATEGORIES[category]?.label}
                 </Typography>
                 <Typography
                   variant="caption"
@@ -1584,7 +1620,7 @@ const CharityMap = () => {
                     fontSize: "9px",
                     color: "text.secondary",
                     backgroundColor: isVisible
-                      ? `${PROJECT_CATEGORIES[category]?.color}20`
+                      ? `${LODGE_CATEGORIES[category]?.color}20`
                       : "#f5f5f5",
                     px: 0.5,
                     py: 0.1,
@@ -1715,7 +1751,7 @@ const CharityMap = () => {
                   variant="h6"
                   sx={{ fontWeight: 600, fontSize: "1.1rem" }}
                 >
-                  Project Details
+                  Lodge Details
                 </Typography>
                 <IconButton
                   onClick={() => setDrawerOpen(false)}
@@ -1729,7 +1765,7 @@ const CharityMap = () => {
                   <CloseIcon />
                 </IconButton>
               </Box>
-              {selectedProjectDetails && (
+              {selectedLodgeDetails && (
                 <Typography
                   variant="body2"
                   sx={{
@@ -1738,7 +1774,7 @@ const CharityMap = () => {
                     fontSize: "0.9rem",
                   }}
                 >
-                  {selectedProjectDetails?.name}
+                  {selectedLodgeDetails?.name}
                 </Typography>
               )}
             </Box>
@@ -1790,7 +1826,7 @@ const CharityMap = () => {
               backgroundColor: "#fafafa",
             }}
           >
-            {selectedProjectDetails ? (
+            {selectedLodgeDetails ? (
               <>
                 {tabValue === 0 && (
                   <Box
@@ -1815,13 +1851,13 @@ const CharityMap = () => {
                           letterSpacing: 0.5,
                         }}
                       >
-                        Project Name
+                        Lodge Name
                       </Typography>
                       <Typography
                         variant="body1"
                         sx={{ fontWeight: 500, color: "text.primary" }}
                       >
-                        {selectedProjectDetails.name}
+                        {selectedLodgeDetails.name}
                       </Typography>
                     </Box>
 
@@ -1853,18 +1889,18 @@ const CharityMap = () => {
                             px: 2,
                             py: 0.5,
                             borderRadius: 3,
-                            backgroundColor: `${PROJECT_CATEGORIES[
-                              selectedProjectDetails.category
+                            backgroundColor: `${LODGE_CATEGORIES[
+                              selectedLodgeDetails.category
                             ]?.color}20`,
-                            color: PROJECT_CATEGORIES[
-                              selectedProjectDetails.category
+                            color: LODGE_CATEGORIES[
+                              selectedLodgeDetails.category
                             ]?.color,
                             fontWeight: 600,
                             fontSize: "0.85rem",
                           }}
                         >
-                          {PROJECT_CATEGORIES[selectedProjectDetails.category]
-                            ?.label || selectedProjectDetails.category}
+                          {LODGE_CATEGORIES[selectedLodgeDetails.category]
+                            ?.label || selectedLodgeDetails.category}
                         </Box>
                       </Box>
 
@@ -1893,7 +1929,7 @@ const CharityMap = () => {
                         variant="body1"
                         sx={{ fontWeight: 500, color: "text.primary" }}
                       >
-                        {selectedProjectDetails.description || "-"}
+                        {selectedLodgeDetails.description || "-"}
                       </Typography>
                     </Box>
 
@@ -1916,7 +1952,7 @@ const CharityMap = () => {
                           letterSpacing: 0.5,
                         }}
                       >
-                        Status
+                        Rating
                       </Typography>
                       <Box
                         sx={{
@@ -1925,22 +1961,13 @@ const CharityMap = () => {
                           px: 2,
                           py: 0.5,
                           borderRadius: 3,
-                          backgroundColor: `${getStatusColor(
-                            selectedProjectDetails.status
-                          )}20`,
-                          color: getStatusColor(
-                            selectedProjectDetails.status
-                          ),
+                          backgroundColor: "#fff3cd",
+                          color: "#856404",
                           fontWeight: 600,
                           fontSize: "0.85rem",
                         }}
                       >
-                        {selectedProjectDetails.status
-                          ?.charAt(0)
-                          .toUpperCase() +
-                          selectedProjectDetails.status
-                            ?.slice(1)
-                            .replace("_", " ") || "-"}
+                        ⭐ {selectedLodgeDetails.rating || "-"}
                       </Box>
                     </Box>
 
@@ -1963,19 +1990,19 @@ const CharityMap = () => {
                           letterSpacing: 0.5,
                         }}
                       >
-                        Target Individual
+                        Price
                       </Typography>
                       <Typography
                         variant="body1"
                         sx={{ fontWeight: 500, color: "text.primary" }}
                       >
-                        {selectedProjectDetails.target_individual || "-"}
+                        {selectedLodgeDetails.price || "-"}
                       </Typography>
                     </Box>
 
                     {/* Distance from user location */}
                     {userLocation &&
-                      selectedProjectDetails.distance !== undefined && (
+                      selectedLodgeDetails.distance !== undefined && (
                         <Box
                           sx={{
                             p: 2,
@@ -2011,7 +2038,7 @@ const CharityMap = () => {
                             }}
                           >
                             <LocationOnIcon sx={{ fontSize: 16, mr: 0.5 }} />
-                            {selectedProjectDetails.distance.toFixed(1)} km
+                            {selectedLodgeDetails.distance.toFixed(1)} km
                           </Box>
                         </Box>
                       )}
@@ -2040,71 +2067,13 @@ const CharityMap = () => {
                           letterSpacing: 0.5,
                         }}
                       >
-                        County
+                        Location
                       </Typography>
                       <Typography
                         variant="body1"
                         sx={{ fontWeight: 500, color: "text.primary" }}
                       >
-                        {selectedProjectDetails.county || "-"}
-                      </Typography>
-                    </Box>
-
-                    <Box
-                      sx={{
-                        p: 2,
-                        backgroundColor: "white",
-                        borderRadius: 2,
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                        border: "1px solid #e0e0e0",
-                      }}
-                    >
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color: "text.secondary",
-                          mb: 1,
-                          fontSize: "0.8rem",
-                          textTransform: "uppercase",
-                          letterSpacing: 0.5,
-                        }}
-                      >
-                        Subcounty
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        sx={{ fontWeight: 500, color: "text.primary" }}
-                      >
-                        {selectedProjectDetails.subcounty || "-"}
-                      </Typography>
-                    </Box>
-
-                    <Box
-                      sx={{
-                        p: 2,
-                        backgroundColor: "white",
-                        borderRadius: 2,
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-                        border: "1px solid #e0e0e0",
-                      }}
-                    >
-                      <Typography
-                        variant="subtitle2"
-                        sx={{
-                          color: "text.secondary",
-                          mb: 1,
-                          fontSize: "0.8rem",
-                          textTransform: "uppercase",
-                          letterSpacing: 0.5,
-                        }}
-                      >
-                        Progress
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        sx={{ fontWeight: 500, color: "text.primary" }}
-                      >
-                        {selectedProjectDetails.progress || 0}%
+                        {selectedLodgeDetails.location || "-"}
                       </Typography>
                     </Box>
 
@@ -2145,7 +2114,7 @@ const CharityMap = () => {
                               fontFamily: "monospace",
                             }}
                           >
-                            {selectedProjectDetails.latitude || "-"}
+                            {selectedLodgeDetails.latitude || "-"}
                           </Typography>
                         </Box>
                         <Box>
@@ -2163,7 +2132,7 @@ const CharityMap = () => {
                               fontFamily: "monospace",
                             }}
                           >
-                            {selectedProjectDetails.longitude || "-"}
+                            {selectedLodgeDetails.longitude || "-"}
                           </Typography>
                         </Box>
                       </Box>
@@ -2224,9 +2193,9 @@ const CharityMap = () => {
                 fullWidth
                 variant="contained"
                 onClick={() => {
-                  if (selectedProjectDetails?.id) {
-                    navigate(`/project/${selectedProjectDetails.id}`);
-                  }
+                  // Navigate to lodge details if needed
+                  // For now, just close the drawer
+                  setDrawerOpen(false);
                 }}
                 sx={{
                   py: 1.5,
@@ -2249,10 +2218,250 @@ const CharityMap = () => {
               </Button>
             </Box>
           </Box>
-        </Drawer>
-      </Box>
-    </>
-  );
-};
+         </Drawer>
+           </Box>
 
-export default CharityMap;
+           {/* Lodge Partners Section */}
+           <Box
+             sx={{
+               mt: { xs: 3, md: 4 },
+               pt: { xs: 3, md: 4 },
+               borderTop: "1px solid #e0e0e0",
+             }}
+           >
+             <Typography
+               variant="h4"
+               sx={{
+                 textAlign: "center",
+                 mb: { xs: 3, md: 4 },
+                 fontWeight: 600,
+                 color: "#5D4037",
+                 fontSize: { xs: "1.5rem", md: "2rem" },
+               }}
+             >
+               Our Partner Lodges
+             </Typography>
+           <Box
+             sx={{
+               display: "flex",
+               flexWrap: "wrap",
+               justifyContent: "space-around",
+               alignItems: "center",
+               gap: { xs: 2, md: 3 },
+               px: { xs: 1, md: 2 },
+             }}
+           >
+             {[
+               { 
+                 name: "Lion Sands", 
+                 subtitle: "GAME RESERVE",
+                 logo: (
+                   <Box sx={{ textAlign: "center" }}>
+                     <Typography
+                       sx={{
+                         fontFamily: "'Brush Script MT', cursive",
+                         fontSize: { xs: "1.5rem", md: "2rem" },
+                         color: "#333",
+                         fontWeight: 400,
+                         lineHeight: 1.2,
+                       }}
+                     >
+                       Lion Sands
+                     </Typography>
+                     <Typography
+                       sx={{
+                         fontSize: { xs: "0.6rem", md: "0.7rem" },
+                         color: "#666",
+                         letterSpacing: "0.15em",
+                         textTransform: "uppercase",
+                         mt: 0.5,
+                       }}
+                     >
+                       GAME RESERVE
+                     </Typography>
+                   </Box>
+                 )
+               },
+               { 
+                 name: "Abstract Lines",
+                 subtitle: "",
+                 logo: (
+                   <Box
+                     sx={{
+                       width: { xs: 60, md: 80 },
+                       height: { xs: 60, md: 80 },
+                       display: "flex",
+                       alignItems: "center",
+                       justifyContent: "center",
+                     }}
+                   >
+                     <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                       {[...Array(12)].map((_, i) => (
+                         <line
+                           key={i}
+                           x1={20 + (i % 4) * 5}
+                           y1={10 + Math.random() * 5}
+                           x2={20 + (i % 4) * 5}
+                           y2={50 - Math.random() * 5}
+                           stroke="#000"
+                           strokeWidth="1.5"
+                           strokeLinecap="round"
+                         />
+                       ))}
+                     </svg>
+                   </Box>
+                 )
+               },
+               { 
+                 name: "One&Only",
+                 subtitle: "",
+                 logo: (
+                   <Typography
+                     sx={{
+                       fontFamily: "'Times New Roman', serif",
+                       fontSize: { xs: "1.3rem", md: "1.6rem" },
+                       color: "#333",
+                       fontWeight: 400,
+                       "& .ampersand": {
+                         fontStyle: "italic",
+                         fontSize: "1.2em",
+                       },
+                     }}
+                   >
+                     One<span className="ampersand">&</span>Only
+                   </Typography>
+                 )
+               },
+               { 
+                 name: "&BEYOND",
+                 subtitle: "",
+                 logo: (
+                   <Box sx={{ textAlign: "center" }}>
+                     <svg
+                       width={60}
+                       height={40}
+                       viewBox="0 0 60 40"
+                       xmlns="http://www.w3.org/2000/svg"
+                       sx={{ mb: 0.5 }}
+                     >
+                       <path
+                         d="M30 5 L35 15 L45 12 L38 20 L48 25 L35 22 L30 32 L25 22 L12 25 L22 20 L15 12 L25 15 Z"
+                         fill="#000"
+                         stroke="#000"
+                         strokeWidth="1"
+                       />
+                     </svg>
+                     <Typography
+                       sx={{
+                         fontSize: { xs: "0.75rem", md: "0.875rem" },
+                         color: "#000",
+                         fontWeight: 600,
+                         letterSpacing: "0.05em",
+                         textTransform: "uppercase",
+                       }}
+                     >
+                       &BEYOND
+                     </Typography>
+                   </Box>
+                 )
+               },
+               { 
+                 name: "Londolozi",
+                 subtitle: "",
+                 logo: (
+                   <Box sx={{ textAlign: "center" }}>
+                     <Box
+                       sx={{
+                         width: { xs: 50, md: 60 },
+                         height: { xs: 50, md: 60 },
+                         mx: "auto",
+                         mb: 1,
+                       }}
+                     >
+                       <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                         <g transform="translate(30,30)">
+                           {[0, 90, 180, 270].map((angle, i) => (
+                             <ellipse
+                               key={i}
+                               cx={0}
+                               cy={-15}
+                               rx="8"
+                               ry="20"
+                               fill="#000"
+                               transform={`rotate(${angle})`}
+                               opacity="0.8"
+                             />
+                           ))}
+                         </g>
+                       </svg>
+                     </Box>
+                     <Typography
+                       sx={{
+                         fontFamily: "'Times New Roman', serif",
+                         fontSize: { xs: "0.7rem", md: "0.85rem" },
+                         color: "#333",
+                         fontWeight: 500,
+                         letterSpacing: "0.1em",
+                         textTransform: "uppercase",
+                       }}
+                     >
+                       LONDOLOZI
+                     </Typography>
+                   </Box>
+                 )
+               },
+             ].map((lodge, index) => (
+               <Box
+                 key={index}
+                 sx={{
+                   display: "flex",
+                   flexDirection: "column",
+                   alignItems: "center",
+                   justifyContent: "center",
+                   gap: 1,
+                   flex: { xs: "1 1 calc(50% - 16px)", md: "0 1 auto" },
+                   minWidth: { xs: "120px", md: "140px" },
+                   maxWidth: { xs: "180px", md: "200px" },
+                   transition: "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
+                   "&:hover": {
+                     transform: "translateY(-3px)",
+                     opacity: 0.9,
+                   },
+                 }}
+               >
+                 <Box
+                   sx={{
+                     width: "100%",
+                     minHeight: { xs: 80, md: 100 },
+                     display: "flex",
+                     alignItems: "center",
+                     justifyContent: "center",
+                     py: 2,
+                   }}
+                 >
+                   {lodge.logo}
+                 </Box>
+                 {lodge.subtitle && (
+                   <Typography
+                     variant="caption"
+                     sx={{
+                       textAlign: "center",
+                       color: "text.secondary",
+                       fontSize: { xs: "0.65rem", md: "0.75rem" },
+                       display: "block",
+                     }}
+                   >
+                     {lodge.subtitle}
+                   </Typography>
+                 )}
+               </Box>
+             ))}
+           </Box>
+           </Box>
+         </Paper>
+       </Container>
+     </Box>
+   );
+ };
+ 
+ export default CharityMap;

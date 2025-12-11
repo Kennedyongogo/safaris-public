@@ -57,32 +57,31 @@ export default function PublicHeader() {
         color: "#e91e63",
       },
       {
-        label: "Projects",
-        icon: <School />,
-        sectionId: "projects-section",
-        color: "#4caf50",
-      },
-      {
-        label: "Contact",
+        label: "Start Planning",
         icon: <LocalHospital />,
-        sectionId: "contact-section",
+        route: "/plan",
         color: "#607d8b",
       },
       {
-        label: "Testimonials",
+        label: "Reviews",
         icon: <RateReview />,
-        sectionId: "testimonials-section",
+        route: "/reviews",
         color: "#ff9800",
       },
       {
-        label: "Our Team",
+        label: "About Us",
         icon: <Groups />,
-        sectionId: "team-section",
+        route: "/team",
         color: "#9c27b0",
       },
     ],
     []
   );
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -513,10 +512,13 @@ export default function PublicHeader() {
               return (
                 <ListItem
                   key={item.label}
-                  button
-                  onClick={() => handleNavigateToSection(item)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleNavigateToSection(item);
+                  }}
                   disableRipple
                   sx={{
+                    cursor: "pointer",
                     borderRadius: "12px",
                     mb: 1,
                     py: 1.5,

@@ -46,8 +46,8 @@ export default function HeroSection() {
     });
   }, [currentVideoIndex]);
 
-  const handleExploreAboutUs = () => {
-    navigate("/about-us");
+  const handleBookSafari = () => {
+    navigate("/plan");
   };
 
   return (
@@ -194,7 +194,7 @@ export default function HeroSection() {
                 color="primary"
                 size="large"
                 endIcon={<ArrowForward />}
-                onClick={handleExploreAboutUs}
+                onClick={handleBookSafari}
                 sx={{
                   px: 2,
                   py: 0.75,
