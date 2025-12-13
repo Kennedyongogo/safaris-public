@@ -29,7 +29,8 @@ export default function AboutUsSection() {
     <Box
       id="about-section"
       sx={{
-        py: { xs: 1, sm: 1.5, md: 2 },
+        pt: { xs: 0.5, sm: 0.75, md: 1 },
+        pb: { xs: 1, sm: 1.5, md: 2 },
         position: "relative",
         zIndex: 1,
         background: "transparent",
@@ -39,7 +40,7 @@ export default function AboutUsSection() {
         maxWidth="xl"
         sx={{
           px: { xs: 1.5, sm: 1.5, md: 1.5 },
-          pt: { xs: 1.5, sm: 1.5, md: 1.5 },
+          pt: { xs: 0.75, sm: 0.75, md: 0.75 },
           position: "relative",
           zIndex: 1,
         }}
@@ -47,11 +48,11 @@ export default function AboutUsSection() {
         <Paper
           elevation={3}
           sx={{
-            py: { xs: 1.5, sm: 2, md: 2.5 },
-            px: { xs: 1.5, sm: 1.5, md: 1.5 },
-            borderRadius: { xs: 3, md: 4 },
-            background: "white",
-            border: "1px solid #e0e0e0",
+            py: { xs: 1, sm: 1.25, md: 1.5 },
+            px: { xs: 1.25, sm: 1.25, md: 1.5 },
+            borderRadius: { xs: 2, md: 3 },
+            background: "#FFFFFF",
+            border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
             minHeight: "auto",
             height: "auto",
           }}
@@ -62,7 +63,7 @@ export default function AboutUsSection() {
               <Box
                 sx={{
                   width: "100%",
-                  height: { xs: "300px", md: "400px" },
+                  height: { xs: "240px", md: "320px" },
                   borderRadius: { xs: 2, md: 3 },
                   overflow: "hidden",
                   position: "relative",
@@ -94,16 +95,16 @@ export default function AboutUsSection() {
                   flexDirection: "column",
                   justifyContent: "center",
                   height: { xs: "auto", md: "100%" },
-                  p: { xs: 2, md: 3 },
+                  p: { xs: 1.25, md: 1.75 },
                 }}
               >
                 <Typography
                   variant="h2"
                   sx={{
-                    fontWeight: 700,
-                    mb: { xs: 1.5, md: 2 },
+                    fontWeight: 950,
+                    mb: { xs: 1, md: 1.25 },
                     color: "#5D4037", // Dark brown
-                    fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.5rem" },
+                    fontSize: { xs: "1.4rem", sm: "1.45rem", md: "1.5rem" },
                   }}
                 >
                   About Us
@@ -112,31 +113,14 @@ export default function AboutUsSection() {
                 <Typography
                   variant="body1"
                   sx={{
-                    mb: { xs: 1.5, md: 2 },
+                    mb: { xs: 1.25, md: 1.5 },
                     color: "text.primary",
-                    fontSize: { xs: "0.875rem", md: "1rem" },
-                    lineHeight: 1.7,
+                    fontSize: { xs: "1.2rem", md: "1.2rem" },
+                    fontWeight: 750,
+                    lineHeight: 1.6,
                   }}
                 >
-                  Akira Safaris opens the door to Africa's awe-inspiring beauty,
-                  wonders, and hidden treasures. Our dedicated experts are here
-                  to create a transformative journey, making sure you feel the
-                  vibrant pulse of this extraordinary continent every step of
-                  the way.
-                </Typography>
-
-                <Typography
-                  variant="body1"
-                  sx={{
-                    mb: { xs: 2, md: 3 },
-                    color: "text.primary",
-                    fontSize: { xs: "0.875rem", md: "1rem" },
-                    lineHeight: 1.7,
-                  }}
-                >
-                  Join us for a journey where every moment is an opportunity to
-                  discover and savor the magic of Africa. Ready to make lifelong
-                  memories?
+                  Akira Safaris was born around camp-fires and living-room couches when Couchsurfing guests asked us to "show us the Africa you know." Weekend road-trips to the Mara and Amboseli turned into a calling: craft personal, expert-led journeys built on authentic human connection. Today we are that same hospitality, scaled boutique, 100 % private, carbon-positive. Every safari uses a dedicated vehicle and guide, is timed for secret water-holes and sundowner hills, and plants ten indigenous trees in your
                 </Typography>
 
                 <Button
@@ -145,13 +129,13 @@ export default function AboutUsSection() {
                   onClick={handleMeetTeam}
                   sx={{
                     alignSelf: { xs: "stretch", sm: "flex-start" },
-                    px: 4,
-                    py: 1.5,
+                    px: 2.5,
+                    py: 0.75,
                     borderRadius: 2,
-                    backgroundColor: "#D2B48C", // Light brown/tan
-                    color: "#5D4037", // Dark brown text
-                    fontWeight: 600,
-                    fontSize: { xs: "0.875rem", md: "1rem" },
+                    backgroundColor: "#B85C38", // Burnt orange/rust
+                    color: "white",
+                    fontWeight: 800,
+                    fontSize: { xs: "1.1rem", md: "1.15rem" },
                     textTransform: "none",
                     "&:focus": {
                       outline: "none",
@@ -161,14 +145,14 @@ export default function AboutUsSection() {
                       boxShadow: "none",
                     },
                     "&:hover": {
-                      backgroundColor: "#C9A96B",
+                      backgroundColor: "#8B4225", // Dark rust
                       transform: "translateY(-2px)",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+                      boxShadow: "0 4px 12px rgba(184, 92, 56, 0.3)",
                     },
                     transition: "all 0.3s ease",
                   }}
                 >
-                  Meet the Team
+                  Learn More About Us
                 </Button>
               </Box>
             </Grid>

@@ -15,12 +15,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import {
-  LocationOn,
-  Schedule,
-  People,
-  ArrowForward,
-} from "@mui/icons-material";
+import { LocationOn, ArrowForward } from "@mui/icons-material";
 
 const MotionBox = motion(Box);
 
@@ -133,14 +128,14 @@ export default function Destinations() {
     <Box
       sx={{
         pt: 1.5,
-        pb: 3,
+        pb: 1.5,
         px: 0,
-        bgcolor: "#FAF0E6", // Light beige/cream background
+        bgcolor: "#F5F1E8", // Light beige from palette
         background:
-          "linear-gradient(135deg, rgba(250, 240, 230, 0.95) 0%, rgba(255, 250, 240, 0.98) 50%, rgba(245, 245, 220, 0.95) 100%)",
+          "linear-gradient(135deg, rgba(245, 241, 232, 0.95) 0%, rgba(255, 255, 255, 0.98) 50%, rgba(232, 224, 209, 0.95) 100%)",
         position: "relative",
         overflow: "hidden",
-        minHeight: "100vh",
+        minHeight: "auto",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -149,7 +144,7 @@ export default function Destinations() {
           right: 0,
           bottom: 0,
           background:
-            "radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 140, 66, 0.08) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 80%, rgba(184, 92, 56, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(107, 78, 61, 0.08) 0%, transparent 50%)", // Rust and medium brown
           zIndex: 0,
         },
       }}
@@ -174,8 +169,8 @@ export default function Destinations() {
               py: { xs: 1.5, sm: 2, md: 2.5 },
               px: { xs: 1.5, sm: 1.5, md: 1.5 },
               borderRadius: { xs: 3, md: 4 },
-              background: "white",
-              border: "1px solid #e0e0e0",
+              background: "#FFFFFF",
+              border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
               minHeight: "auto",
               height: "auto",
               overflow: "hidden",
@@ -190,7 +185,7 @@ export default function Destinations() {
                   fontWeight: 800,
                   fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2.2rem" },
                   background:
-                    "linear-gradient(45deg, #FF6B35, #FF8C42, #5D4037)",
+                    "linear-gradient(45deg, #6B4E3D, #B85C38, #3D2817)", // Medium brown, rust, dark brown
                   backgroundClip: "text",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -204,7 +199,7 @@ export default function Destinations() {
                     transform: "translateX(-50%)",
                     width: { xs: "60px", sm: "70px", md: "80px" },
                     height: "4px",
-                    background: "linear-gradient(45deg, #FF6B35, #FF8C42)",
+                    background: "linear-gradient(45deg, #6B4E3D, #B85C38)", // Medium brown to rust
                     borderRadius: "2px",
                   },
                 }}
@@ -221,7 +216,7 @@ export default function Destinations() {
                   fontWeight: 500,
                   fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1rem" },
                   lineHeight: 1.6,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Explore all our safari destinations across Kenya
@@ -311,7 +306,7 @@ export default function Destinations() {
                               size="small"
                               sx={{
                                 mb: { xs: 1, sm: 1.5 },
-                                backgroundColor: "#FF6B35",
+                                backgroundColor: "#B85C38", // Burnt orange/rust
                                 color: "white",
                               }}
                             />
@@ -333,20 +328,23 @@ export default function Destinations() {
                             variant="body2"
                             color="text.secondary"
                             sx={{
-                              mb: { xs: 1, sm: 2 },
+                              mb: { xs: 1, sm: 1.5 },
                               overflow: "hidden",
                               display: "-webkit-box",
-                              WebkitLineClamp: 2,
+                              WebkitLineClamp: 3,
                               WebkitBoxOrient: "vertical",
-                              lineHeight: 1.4,
+                              textOverflow: "ellipsis",
+                              lineHeight: 1.5,
+                              minHeight: { xs: "3.6rem", sm: "4.5rem" }, // keep card height stable
                               flexGrow: 1,
-                              fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                              fontSize: { xs: "0.95rem", sm: "1.05rem" },
+                              fontWeight: 700,
                             }}
                           >
                             {destination.description}
                           </Typography>
 
-                          <Box sx={{ mb: { xs: 0.5, sm: 1 } }}>
+                          <Box sx={{ mb: { xs: 0.5, sm: 1 }, mt: { xs: 0.25, sm: 0.5 } }}>
                             <Box
                               sx={{
                                 display: "flex",
@@ -358,65 +356,18 @@ export default function Destinations() {
                               <LocationOn
                                 sx={{
                                   fontSize: { xs: 12, sm: 14 },
-                                  color: "#FF6B35",
+                                  color: "#6B4E3D", // Medium brown
                                 }}
                               />
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                                 sx={{
-                                  fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                  fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                                  fontWeight: 700,
                                 }}
                               >
                                 {destination.location}
-                              </Typography>
-                            </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 0.5,
-                                mb: { xs: 0.25, sm: 0.5 },
-                              }}
-                            >
-                              <Schedule
-                                sx={{
-                                  fontSize: { xs: 12, sm: 14 },
-                                  color: "#FF6B35",
-                                }}
-                              />
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                sx={{
-                                  fontSize: { xs: "0.7rem", sm: "0.8rem" },
-                                }}
-                              >
-                                Duration: {destination.duration}
-                              </Typography>
-                            </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 0.5,
-                                mb: { xs: 0.25, sm: 0.5 },
-                              }}
-                            >
-                              <People
-                                sx={{
-                                  fontSize: { xs: 12, sm: 14 },
-                                  color: "#FF6B35",
-                                }}
-                              />
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                sx={{
-                                  fontSize: { xs: "0.7rem", sm: "0.8rem" },
-                                }}
-                              >
-                                Best Time: {destination.bestTime}
                               </Typography>
                             </Box>
                           </Box>
@@ -429,13 +380,20 @@ export default function Destinations() {
                               endIcon={<ArrowForward />}
                               onClick={() => handleViewDetails(destination.id)}
                               sx={{
-                                borderColor: "#FF6B35",
-                                color: "#FF6B35",
+                                borderColor: "#6B4E3D", // Medium brown
+                                color: "#6B4E3D",
                                 fontSize: "0.875rem",
                                 py: 1,
+                                "&:focus": {
+                                  outline: "none",
+                                },
+                                "&:focus-visible": {
+                                  outline: "none",
+                                  boxShadow: "none",
+                                },
                                 "&:hover": {
-                                  borderColor: "#FF8C42",
-                                  backgroundColor: "#FF6B35",
+                                  borderColor: "#B85C38", // Rust
+                                  backgroundColor: "#6B4E3D",
                                   color: "white",
                                 },
                               }}

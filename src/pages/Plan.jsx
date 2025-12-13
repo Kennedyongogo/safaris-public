@@ -132,14 +132,14 @@ export default function Plan() {
     <Box
       sx={{
         pt: 1.5,
-        pb: 3,
+        pb: 1.5,
         px: 0,
-        bgcolor: "#FAF0E6",
+        bgcolor: "#F5F1E8", // Light beige from palette
         background:
-          "linear-gradient(135deg, rgba(250, 240, 230, 0.95) 0%, rgba(255, 250, 240, 0.98) 50%, rgba(245, 245, 220, 0.95) 100%)",
+          "linear-gradient(135deg, rgba(245, 241, 232, 0.95) 0%, rgba(255, 255, 255, 0.98) 50%, rgba(232, 224, 209, 0.95) 100%)",
         position: "relative",
         overflow: "hidden",
-        minHeight: "100vh",
+        minHeight: "auto",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -148,7 +148,7 @@ export default function Plan() {
           right: 0,
           bottom: 0,
           background:
-            "radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 140, 66, 0.08) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 80%, rgba(184, 92, 56, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(107, 78, 61, 0.08) 0%, transparent 50%)", // Rust and medium brown
           zIndex: 0,
         },
       }}
@@ -168,8 +168,8 @@ export default function Plan() {
             py: { xs: 1.5, sm: 2, md: 2.5 },
             px: { xs: 1.5, sm: 1.5, md: 1.5 },
             borderRadius: { xs: 3, md: 4 },
-            background: "white",
-            border: "1px solid #e0e0e0",
+            background: "#FFFFFF",
+            border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
             minHeight: "auto",
             height: "auto",
             overflow: "hidden",
@@ -182,8 +182,8 @@ export default function Plan() {
               sx={{
                 mb: 1,
                 fontWeight: 700,
-                fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-                color: "#5D4037",
+                fontSize: { xs: "1.9rem", sm: "2.3rem", md: "2.7rem" },
+                color: "#3D2817", // Dark brown from palette
                 fontFamily: "serif",
               }}
             >
@@ -192,10 +192,10 @@ export default function Plan() {
             <Typography
               variant="h5"
               sx={{
-                mb: 2,
+                mb: 1.5,
                 fontWeight: 500,
-                fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
-                color: "#5D4037",
+                fontSize: { xs: "1.15rem", sm: "1.3rem", md: "1.45rem" },
+                color: "#3D2817", // Dark brown from palette
                 fontFamily: "serif",
               }}
             >
@@ -207,7 +207,7 @@ export default function Plan() {
                 maxWidth: "900px",
                 mx: "auto",
                 color: "text.secondary",
-                fontSize: { xs: "0.875rem", md: "1rem" },
+                fontSize: { xs: "1rem", md: "1.1rem" },
                 lineHeight: 1.7,
               }}
             >
@@ -232,7 +232,7 @@ export default function Plan() {
                 sx={{
                   mb: 2,
                   fontWeight: 600,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Personal Information
@@ -336,7 +336,7 @@ export default function Plan() {
                 sx={{
                   mb: 2,
                   fontWeight: 600,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Do you know where you want to go? *
@@ -368,7 +368,7 @@ export default function Plan() {
                   sx={{
                     mb: 2,
                     fontWeight: 600,
-                    color: "#5D4037",
+                    color: "#3D2817", // Dark brown from palette
                   }}
                 >
                   Where in Africa would you like to travel to?
@@ -400,7 +400,7 @@ export default function Plan() {
                   sx={{
                     mb: 2,
                     fontWeight: 600,
-                    color: "#5D4037",
+                    color: "#3D2817", // Dark brown from palette
                   }}
                 >
                   Why do you want to travel to Africa?
@@ -435,7 +435,7 @@ export default function Plan() {
                 sx={{
                   mb: 2,
                   fontWeight: 600,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Interested to book Daniel as your Private Safari Guide for South
@@ -467,7 +467,7 @@ export default function Plan() {
                 sx={{
                   mb: 2,
                   fontWeight: 600,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Do you have a specific time frame for your upcoming trip? *
@@ -608,7 +608,7 @@ export default function Plan() {
                 sx={{
                   mb: 2,
                   fontWeight: 600,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Do you have a budget in mind (per person, per day), excluding
@@ -630,7 +630,7 @@ export default function Plan() {
                         </Typography>
                         <Typography
                           variant="body2"
-                          sx={{ color: "text.secondary" }}
+                          sx={{ color: "text.secondary", fontSize: "1rem" }}
                         >
                           {option.description}
                         </Typography>
@@ -648,7 +648,7 @@ export default function Plan() {
                 sx={{
                   mb: 2,
                   fontWeight: 600,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Is there anything else that we need to know?
@@ -727,7 +727,7 @@ export default function Plan() {
                 }
                 disabled={loading || !formData.terms}
                 sx={{
-                  backgroundColor: "#8B4513",
+                  backgroundColor: "#B85C38", // Burnt orange/rust
                   color: "white",
                   px: { xs: 4, sm: 5, md: 6 },
                   py: { xs: 1.25, sm: 1.5 },
@@ -736,7 +736,7 @@ export default function Plan() {
                   fontWeight: 600,
                   textTransform: "none",
                   "&:hover": {
-                    backgroundColor: "#A0522D",
+                    backgroundColor: "#8B4225", // Dark rust
                   },
                   "&:disabled": {
                     backgroundColor: "#ccc",
@@ -766,8 +766,8 @@ export default function Plan() {
                     sx={{
                       mb: 2,
                       fontWeight: 700,
-                      fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-                      color: "#FF6B35",
+                      fontSize: { xs: "2.35rem", sm: "2.85rem", md: "3.35rem" },
+                      color: "#B85C38", // Burnt orange/rust
                     }}
                   >
                     01
@@ -777,8 +777,8 @@ export default function Plan() {
                     sx={{
                       mb: 2,
                       fontWeight: 600,
-                      fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
-                      color: "#5D4037",
+                      fontSize: { xs: "1.3rem", sm: "1.45rem", md: "1.7rem" },
+                      color: "#3D2817", // Dark brown from palette
                     }}
                   >
                     Share Your Ideal Travel Experience
@@ -787,7 +787,7 @@ export default function Plan() {
                     variant="body1"
                     sx={{
                       color: "text.secondary",
-                      fontSize: { xs: "0.875rem", md: "1rem" },
+                      fontSize: { xs: "1rem", md: "1.1rem" },
                       lineHeight: 1.7,
                     }}
                   >
@@ -812,8 +812,8 @@ export default function Plan() {
                     sx={{
                       mb: 2,
                       fontWeight: 700,
-                      fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-                      color: "#FF6B35",
+                      fontSize: { xs: "2.35rem", sm: "2.85rem", md: "3.35rem" },
+                      color: "#B85C38", // Burnt orange/rust
                     }}
                   >
                     02
@@ -823,17 +823,17 @@ export default function Plan() {
                     sx={{
                       mb: 2,
                       fontWeight: 600,
-                      fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
-                      color: "#5D4037",
+                      fontSize: { xs: "1.3rem", sm: "1.45rem", md: "1.7rem" },
+                      color: "#3D2817", // Dark brown from palette
                     }}
                   >
-                    Let Daniel Craft Your Perfect Journey
+                    Let David Craft Your Perfect Journey
                   </Typography>
                   <Typography
                     variant="body1"
                     sx={{
                       color: "text.secondary",
-                      fontSize: { xs: "0.875rem", md: "1rem" },
+                      fontSize: { xs: "1rem", md: "1.1rem" },
                       lineHeight: 1.7,
                     }}
                   >
@@ -858,8 +858,8 @@ export default function Plan() {
                     sx={{
                       mb: 2,
                       fontWeight: 700,
-                      fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
-                      color: "#FF6B35",
+                      fontSize: { xs: "2.35rem", sm: "2.85rem", md: "3.35rem" },
+                      color: "#B85C38", // Burnt orange/rust
                     }}
                   >
                     03
@@ -869,8 +869,8 @@ export default function Plan() {
                     sx={{
                       mb: 2,
                       fontWeight: 600,
-                      fontSize: { xs: "1.125rem", sm: "1.25rem", md: "1.5rem" },
-                      color: "#5D4037",
+                      fontSize: { xs: "1.3rem", sm: "1.45rem", md: "1.7rem" },
+                      color: "#3D2817", // Dark brown from palette
                     }}
                   >
                     Finalize Your Plans & Pack Your Bags
@@ -879,7 +879,7 @@ export default function Plan() {
                     variant="body1"
                     sx={{
                       color: "text.secondary",
-                      fontSize: { xs: "0.875rem", md: "1rem" },
+                      fontSize: { xs: "1rem", md: "1.1rem" },
                       lineHeight: 1.7,
                     }}
                   >

@@ -33,37 +33,37 @@ import {
   People,
 } from "@mui/icons-material";
 
-// Category configuration mapping
+// Category configuration mapping - Earth Tones
 const categoryConfig = {
   educational_support: {
     icon: School,
-    color: "#2196f3",
-    gradient: "linear-gradient(135deg, #2196f3, #21cbf3)",
+    color: "#6B4E3D", // Medium brown
+    gradient: "linear-gradient(135deg, #6B4E3D, #8B6F5E)",
   },
   mental_health_awareness: {
     icon: Psychology,
-    color: "#e91e63",
-    gradient: "linear-gradient(135deg, #e91e63, #f06292)",
+    color: "#6B7D47", // Olive green
+    gradient: "linear-gradient(135deg, #6B7D47, #8B9A6B)",
   },
   poverty_alleviation: {
     icon: VolunteerActivism,
-    color: "#4caf50",
-    gradient: "linear-gradient(135deg, #4caf50, #81c784)",
+    color: "#2D4A2D", // Dark forest green
+    gradient: "linear-gradient(135deg, #2D4A2D, #6B7D47)",
   },
   community_empowerment: {
     icon: Group,
-    color: "#ff9800",
-    gradient: "linear-gradient(135deg, #ff9800, #ffb74d)",
+    color: "#B85C38", // Burnt orange/rust
+    gradient: "linear-gradient(135deg, #B85C38, #C97A5A)",
   },
   healthcare_access: {
     icon: LocalHospital,
-    color: "#9c27b0",
-    gradient: "linear-gradient(135deg, #9c27b0, #ba68c8)",
+    color: "#3D2817", // Dark brown
+    gradient: "linear-gradient(135deg, #3D2817, #6B4E3D)",
   },
   youth_development: {
     icon: EmojiPeople,
-    color: "#00bcd4",
-    gradient: "linear-gradient(135deg, #00bcd4, #4dd0e1)",
+    color: "#8B6F5E", // Lighter brown
+    gradient: "linear-gradient(135deg, #8B6F5E, #B85C38)",
   },
 };
 
@@ -426,12 +426,12 @@ export default function ServicesSection() {
     <Box
       id="mission-section"
       sx={{
-        pt: 1.5,
-        pb: 3,
+        pt: { xs: 0.09375, sm: 0.09375, md: 0.09375 },
+        pb: { xs: 0.5, sm: 0.75, md: 1 },
         px: 0,
         bgcolor: "background.paper",
         background:
-          "linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(248, 250, 252, 0.9) 100%)",
+          "linear-gradient(135deg, rgba(245, 241, 232, 0.9) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(232, 224, 209, 0.9) 100%)", // Beige tones
         position: "relative",
         overflow: "hidden",
         "&::before": {
@@ -442,7 +442,7 @@ export default function ServicesSection() {
           right: 0,
           bottom: 0,
           background:
-            "radial-gradient(circle at 20% 80%, rgba(33, 150, 243, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(233, 30, 99, 0.1) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 80%, rgba(107, 78, 61, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(184, 92, 56, 0.1) 0%, transparent 50%)", // Medium brown and rust
           zIndex: 0,
         },
       }}
@@ -453,17 +453,18 @@ export default function ServicesSection() {
           position: "relative",
           zIndex: 1,
           px: { xs: 1.5, sm: 1.5, md: 1.5 },
-          pt: { xs: 1.5, sm: 1.5, md: 1.5 },
+          pt: { xs: 0.09375, sm: 0.09375, md: 0.09375 },
         }}
       >
         <Paper
           elevation={3}
           sx={{
-            py: { xs: 1.5, sm: 2, md: 2.5 },
+            pt: { xs: 1.5, sm: 2, md: 2.5 },
+            pb: { xs: 0.5, sm: 0.75, md: 1 },
             px: { xs: 1.5, sm: 1.5, md: 1.5 },
             borderRadius: { xs: 3, md: 4 },
-            background: "white",
-            border: "1px solid #e0e0e0",
+            background: "#FFFFFF",
+            border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
             minHeight: "auto",
             height: "auto",
           }}
@@ -477,7 +478,7 @@ export default function ServicesSection() {
                   fontWeight: 800,
                   fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2.2rem" },
                   background:
-                    "linear-gradient(45deg, #2196f3, #e91e63, #4caf50)",
+                    "linear-gradient(45deg, #6B4E3D, #B85C38, #6B7D47)", // Medium brown, rust, olive green
                   backgroundClip: "text",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -491,7 +492,7 @@ export default function ServicesSection() {
                     transform: "translateX(-50%)",
                     width: { xs: "60px", sm: "70px", md: "80px" },
                     height: "4px",
-                    background: "linear-gradient(45deg, #2196f3, #e91e63)",
+                    background: "linear-gradient(45deg, #6B4E3D, #B85C38)", // Medium brown to rust
                     borderRadius: "2px",
                   },
                 }}
@@ -528,7 +529,7 @@ export default function ServicesSection() {
                 <Chip
                   label="Wildlife Adventures"
                   sx={{
-                    background: "linear-gradient(45deg, #2196f3, #21cbf3)",
+                    background: "linear-gradient(45deg, #6B4E3D, #8B6F5E)", // Medium brown to lighter brown
                     color: "white",
                     fontWeight: 600,
                     px: { xs: 1.5, sm: 2 },
@@ -539,7 +540,7 @@ export default function ServicesSection() {
                 <Chip
                   label="Nature Exploration"
                   sx={{
-                    background: "linear-gradient(45deg, #e91e63, #f06292)",
+                    background: "linear-gradient(45deg, #B85C38, #C97A5A)", // Rust to light rust
                     color: "white",
                     fontWeight: 600,
                     px: { xs: 1.5, sm: 2 },
@@ -550,7 +551,7 @@ export default function ServicesSection() {
                 <Chip
                   label="Cultural Experiences"
                   sx={{
-                    background: "linear-gradient(45deg, #4caf50, #81c784)",
+                    background: "linear-gradient(45deg, #6B7D47, #8B9A6B)", // Olive green to light olive
                     color: "white",
                     fontWeight: 600,
                     px: { xs: 1.5, sm: 2 },
@@ -680,14 +681,16 @@ export default function ServicesSection() {
                               variant="body2"
                               color="text.secondary"
                               sx={{
-                                mb: { xs: 1, sm: 2 },
+                                mb: { xs: 1, sm: 1.5 },
                                 overflow: "hidden",
                                 display: "-webkit-box",
-                                WebkitLineClamp: 2,
+                                WebkitLineClamp: 3,
                                 WebkitBoxOrient: "vertical",
-                                lineHeight: 1.4,
+                                lineHeight: 1.5,
                                 flexGrow: 1,
-                                fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                                fontSize: { xs: "0.95rem", sm: "1.05rem" },
+                                fontWeight: 700,
+                                minHeight: { xs: "3.6rem", sm: "4.5rem" },
                               }}
                             >
                               {destination.description}
@@ -704,66 +707,24 @@ export default function ServicesSection() {
                               >
                                 <LocationOn
                                   sx={{
-                                    fontSize: { xs: 12, sm: 14 },
-                                    color: "primary.main",
+                                      fontSize: { xs: 12, sm: 14 },
+                                      color: "#6B4E3D", // Medium brown
                                   }}
                                 />
                                 <Typography
                                   variant="body2"
                                   color="text.secondary"
                                   sx={{
-                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                      fontSize: { xs: "0.85rem", sm: "0.95rem" },
+                                      fontWeight: 700,
+                                      overflow: "hidden",
+                                      display: "-webkit-box",
+                                      WebkitLineClamp: 3,
+                                      WebkitBoxOrient: "vertical",
+                                      textOverflow: "ellipsis",
                                   }}
                                 >
                                   {destination.location}
-                                </Typography>
-                              </Box>
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 0.5,
-                                  mb: { xs: 0.25, sm: 0.5 },
-                                }}
-                              >
-                                <Schedule
-                                  sx={{
-                                    fontSize: { xs: 12, sm: 14 },
-                                    color: "primary.main",
-                                  }}
-                                />
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                  sx={{
-                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
-                                  }}
-                                >
-                                  Duration: {destination.duration}
-                                </Typography>
-                              </Box>
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 0.5,
-                                  mb: { xs: 0.25, sm: 0.5 },
-                                }}
-                              >
-                                <People
-                                  sx={{
-                                    fontSize: { xs: 12, sm: 14 },
-                                    color: "primary.main",
-                                  }}
-                                />
-                                <Typography
-                                  variant="body2"
-                                  color="text.secondary"
-                                  sx={{
-                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
-                                  }}
-                                >
-                                  Best Time: {destination.bestTime}
                                 </Typography>
                               </Box>
                             </Box>
@@ -776,13 +737,16 @@ export default function ServicesSection() {
                                 endIcon={<ArrowForward />}
                                 onClick={() => handleViewMore(destination)}
                                 sx={{
-                                  borderColor: "primary.main",
-                                  color: "primary.main",
+                                  borderColor: "#6B4E3D", // Medium brown
+                                  color: "#6B4E3D",
                                   fontSize: "0.875rem",
                                   py: 1,
+                                  outline: "none",
+                                  "&:focus": { outline: "none", boxShadow: "none" },
+                                  "&:focus-visible": { outline: "none", boxShadow: "none" },
                                   "&:hover": {
-                                    borderColor: "primary.dark",
-                                    backgroundColor: "primary.light",
+                                    borderColor: "#B85C38", // Rust
+                                    backgroundColor: "#6B4E3D",
                                     color: "white",
                                   },
                                 }}
@@ -798,19 +762,19 @@ export default function ServicesSection() {
                 </Grid>
 
                 {/* View All Destinations Button */}
-                <Box sx={{ textAlign: "center", mt: 4 }}>
+                <Box sx={{ textAlign: "center", mt: 1 }}>
                   <Button
                     variant="contained"
-                    size="large"
+                    size="medium"
                     onClick={() => navigate("/destinations")}
                     sx={{
-                      backgroundColor: "#FF6B35",
+                      backgroundColor: "#B85C38", // Burnt orange/rust
                       color: "white",
                       fontWeight: 600,
-                      px: 4,
-                      py: 1.5,
+                      px: 2,
+                      py: 0.5,
                       "&:hover": {
-                        backgroundColor: "#FF8C42",
+                        backgroundColor: "#8B4225", // Dark rust
                       },
                     }}
                   >

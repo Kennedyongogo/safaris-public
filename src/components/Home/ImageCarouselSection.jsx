@@ -64,7 +64,8 @@ export default function ImageCarouselSection() {
   return (
     <Box
       sx={{
-        py: { xs: 1, sm: 1.5, md: 2 },
+        pt: { xs: 0.0625, sm: 0.09375, md: 0.125 },
+        pb: { xs: 0.5, sm: 0.75, md: 1 },
         position: "relative",
         zIndex: 1,
         background: "transparent",
@@ -74,7 +75,7 @@ export default function ImageCarouselSection() {
         maxWidth="xl"
         sx={{
           px: { xs: 1.5, sm: 1.5, md: 1.5 },
-          pt: { xs: 1.5, sm: 1.5, md: 1.5 },
+          pt: { xs: 0.1875, sm: 0.1875, md: 0.1875 },
           position: "relative",
           zIndex: 1,
         }}
@@ -82,11 +83,12 @@ export default function ImageCarouselSection() {
         <Paper
           elevation={3}
           sx={{
-            py: { xs: 1.5, sm: 2, md: 2.5 },
+            pt: { xs: 0.5, sm: 0.75, md: 1 },
+            pb: { xs: 1.5, sm: 2, md: 2.5 },
             px: { xs: 1.5, sm: 1.5, md: 1.5 },
             borderRadius: { xs: 3, md: 4 },
-            background: "white",
-            border: "1px solid #e0e0e0",
+            background: "#FFFFFF",
+            border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
             minHeight: "auto",
             height: "auto",
           }}
@@ -100,19 +102,19 @@ export default function ImageCarouselSection() {
               gap: { xs: 1.5, sm: 2, md: 2.5 },
               scrollBehavior: "smooth",
               scrollbarWidth: "thin",
-              scrollbarColor: "rgba(0,0,0,0.2) transparent",
+              scrollbarColor: "rgba(107, 78, 61, 0.3) transparent", // Medium brown
               "&::-webkit-scrollbar": {
                 height: "8px",
               },
               "&::-webkit-scrollbar-track": {
-                backgroundColor: "rgba(0,0,0,0.05)",
+                backgroundColor: "rgba(107, 78, 61, 0.1)",
                 borderRadius: "10px",
               },
               "&::-webkit-scrollbar-thumb": {
-                backgroundColor: "rgba(0,0,0,0.2)",
+                backgroundColor: "rgba(107, 78, 61, 0.3)", // Medium brown
                 borderRadius: "10px",
                 "&:hover": {
-                  backgroundColor: "rgba(0,0,0,0.3)",
+                  backgroundColor: "rgba(107, 78, 61, 0.5)",
                 },
               },
             }}

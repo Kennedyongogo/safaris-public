@@ -44,14 +44,14 @@ export default function Footer() {
           zIndex: 1,
         }}
       >
-        <Paper
+          <Paper
           elevation={3}
           sx={{
             py: { xs: 1.5, sm: 2, md: 2.5 },
             px: { xs: 1.5, sm: 1.5, md: 1.5 },
             borderRadius: { xs: 3, md: 4 },
-            background: "white",
-            border: "1px solid #e0e0e0",
+            background: "#FFFFFF",
+            border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
             minHeight: "auto",
             height: "auto",
           }}
@@ -96,7 +96,7 @@ export default function Footer() {
                           }}
                         >
                           <img
-                            src="/dave.png"
+                            src="/IMG-20251210-WA0070.jpg"
                             alt="Akira Safaris Logo"
                             style={{
                               height: "32px",
@@ -110,7 +110,7 @@ export default function Footer() {
                           sx={{
                             fontWeight: 700,
                             background:
-                              "linear-gradient(45deg, #2196f3, #1976d2)",
+                              "linear-gradient(45deg, #6B4E3D, #3D2817)", // Medium to dark brown
                             backgroundClip: "text",
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
@@ -127,7 +127,7 @@ export default function Footer() {
                           sx={{
                             mb: { xs: 0.5, sm: 1 },
                             fontWeight: 600,
-                            color: "#ff9800",
+                            color: "#B85C38", // Burnt orange/rust
                             fontSize: { xs: "1rem", sm: "1.25rem" },
                           }}
                         >
@@ -139,7 +139,7 @@ export default function Footer() {
                             mb: 0.5,
                             lineHeight: 1.6,
                             color: "text.primary",
-                            fontSize: { xs: "0.8rem", sm: "1rem" },
+                            fontSize: { xs: "1.1rem", sm: "1.2rem" },
                           }}
                         >
                           Akira Safaris opens the door to Africa's awe-inspiring
@@ -151,7 +151,7 @@ export default function Footer() {
                             mb: { xs: 1, sm: 1.5 },
                             lineHeight: 1.6,
                             color: "text.primary",
-                            fontSize: { xs: "0.8rem", sm: "1rem" },
+                            fontSize: { xs: "1.1rem", sm: "1.2rem" },
                           }}
                         >
                           wonders, and hidden treasures. Creating transformative
@@ -173,13 +173,13 @@ export default function Footer() {
                           size="small"
                           sx={{
                             background:
-                              "linear-gradient(45deg, #4caf50, #66bb6a)",
+                              "linear-gradient(45deg, #2D4A2D, #6B7D47)", // Dark forest green to olive
                             color: "white",
                             fontWeight: 600,
                             fontSize: { xs: "0.7rem", sm: "0.75rem" },
                             "&:hover": {
                               transform: "scale(1.05)",
-                              boxShadow: "0 4px 12px rgba(76, 175, 80, 0.4)",
+                              boxShadow: "0 4px 12px rgba(45, 74, 45, 0.4)",
                             },
                           }}
                         />
@@ -188,13 +188,13 @@ export default function Footer() {
                           size="small"
                           sx={{
                             background:
-                              "linear-gradient(45deg, #e91e63, #f06292)",
+                              "linear-gradient(45deg, #B85C38, #C97A5A)", // Rust to light rust
                             color: "white",
                             fontWeight: 600,
                             fontSize: { xs: "0.7rem", sm: "0.75rem" },
                             "&:hover": {
                               transform: "scale(1.05)",
-                              boxShadow: "0 4px 12px rgba(233, 30, 99, 0.4)",
+                              boxShadow: "0 4px 12px rgba(184, 92, 56, 0.4)",
                             },
                           }}
                         />
@@ -203,13 +203,13 @@ export default function Footer() {
                           size="small"
                           sx={{
                             background:
-                              "linear-gradient(45deg, #ff9800, #ffb74d)",
+                              "linear-gradient(45deg, #6B4E3D, #8B6F5E)", // Medium brown to lighter brown
                             color: "white",
                             fontWeight: 600,
                             fontSize: { xs: "0.7rem", sm: "0.75rem" },
                             "&:hover": {
                               transform: "scale(1.05)",
-                              boxShadow: "0 4px 12px rgba(255, 152, 0, 0.4)",
+                              boxShadow: "0 4px 12px rgba(107, 78, 61, 0.4)",
                             },
                           }}
                         />
@@ -280,14 +280,20 @@ export default function Footer() {
                   <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
                     <Box sx={{ ml: "auto" }}>
                       <Slide direction="up" in timeout={1600}>
-                        <Box sx={{ textAlign: "right" }}>
+                        <Box
+                          sx={{
+                            textAlign: "right",
+                            width: { xs: "100%", sm: "420px" },
+                            maxWidth: "460px",
+                          }}
+                        >
                           <Typography
                             variant="h5"
                             sx={{
                               mb: { xs: 1, sm: 1.5 },
                               fontWeight: 700,
                               background:
-                                "linear-gradient(45deg, #2196f3, #1976d2)",
+                                "linear-gradient(45deg, #6B4E3D, #3D2817)", // Medium to dark brown
                               backgroundClip: "text",
                               WebkitBackgroundClip: "text",
                               WebkitTextFillColor: "transparent",
@@ -332,14 +338,14 @@ export default function Footer() {
                               >
                                 <Box
                                   sx={{
-                                    color: "#4caf50",
+                                    color: "#6B7D47", // Olive green
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
                                     width: { xs: 24, sm: 28 },
                                     height: { xs: 24, sm: 28 },
                                     borderRadius: "50%",
-                                    background: "rgba(76, 175, 80, 0.1)",
+                                    background: "rgba(107, 125, 71, 0.1)",
                                   }}
                                 >
                                   <LocationOn
@@ -353,7 +359,7 @@ export default function Footer() {
                                   sx={{
                                     fontWeight: 600,
                                     color: "text.primary",
-                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                    fontSize: { xs: "0.95rem", sm: "1rem" },
                                   }}
                                 >
                                   Physical Address
@@ -364,7 +370,7 @@ export default function Footer() {
                                 sx={{
                                   color: "text.primary",
                                   lineHeight: 1.4,
-                                  fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                                  fontSize: { xs: "0.95rem", sm: "1rem" },
                                   textAlign: "right",
                                 }}
                               >
@@ -400,14 +406,14 @@ export default function Footer() {
                               >
                                 <Box
                                   sx={{
-                                    color: "#ff9800",
+                                    color: "#B85C38", // Burnt orange/rust
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
                                     width: { xs: 24, sm: 28 },
                                     height: { xs: 24, sm: 28 },
                                     borderRadius: "50%",
-                                    background: "rgba(255, 152, 0, 0.1)",
+                                    background: "rgba(184, 92, 56, 0.1)",
                                   }}
                                 >
                                   <LocationOn
@@ -421,7 +427,7 @@ export default function Footer() {
                                   sx={{
                                     fontWeight: 600,
                                     color: "text.primary",
-                                    fontSize: { xs: "0.7rem", sm: "0.8rem" },
+                                    fontSize: { xs: "0.95rem", sm: "1rem" },
                                   }}
                                 >
                                   Postal Address
@@ -432,7 +438,7 @@ export default function Footer() {
                                 sx={{
                                   color: "text.primary",
                                   lineHeight: 1.4,
-                                  fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                                  fontSize: { xs: "0.95rem", sm: "1rem" },
                                   textAlign: "right",
                                 }}
                               >
@@ -459,14 +465,14 @@ export default function Footer() {
                               >
                                 <Box
                                   sx={{
-                                    color: "#2196f3",
+                                    color: "#6B4E3D", // Medium brown
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
                                     width: { xs: 20, sm: 24 },
                                     height: { xs: 20, sm: 24 },
                                     borderRadius: "50%",
-                                    background: "rgba(33, 150, 243, 0.1)",
+                                    background: "rgba(107, 78, 61, 0.1)",
                                   }}
                                 >
                                   <Phone
@@ -479,7 +485,7 @@ export default function Footer() {
                                   variant="body2"
                                   sx={{
                                     color: "text.primary",
-                                    fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                                    fontSize: { xs: "0.95rem", sm: "1rem" },
                                   }}
                                 >
                                   +254 731 913293
@@ -496,14 +502,14 @@ export default function Footer() {
                               >
                                 <Box
                                   sx={{
-                                    color: "#e91e63",
+                                    color: "#B85C38", // Burnt orange/rust
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
                                     width: { xs: 20, sm: 24 },
                                     height: { xs: 20, sm: 24 },
                                     borderRadius: "50%",
-                                    background: "rgba(233, 30, 99, 0.1)",
+                                    background: "rgba(184, 92, 56, 0.1)",
                                   }}
                                 >
                                   <Email
@@ -516,7 +522,7 @@ export default function Footer() {
                                   variant="body2"
                                   sx={{
                                     color: "text.primary",
-                                    fontSize: { xs: "0.7rem", sm: "0.75rem" },
+                                    fontSize: { xs: "0.95rem", sm: "1rem" },
                                   }}
                                 >
                                   david@akirasafaris.co.ke
@@ -537,9 +543,9 @@ export default function Footer() {
                   <Divider
                     sx={{
                       my: 1,
-                      borderColor: "rgba(255,255,255,0.2)",
+                      borderColor: "rgba(107, 78, 61, 0.2)", // Medium brown
                       "&::before, &::after": {
-                        borderColor: "rgba(255,255,255,0.1)",
+                        borderColor: "rgba(107, 78, 61, 0.1)",
                       },
                     }}
                   />
@@ -547,7 +553,7 @@ export default function Footer() {
                     variant="body1"
                     sx={{
                       textAlign: "center",
-                      py: 1,
+                      py: 0.25,
                       color: "text.primary",
                       fontWeight: 500,
                       fontSize: { xs: "0.75rem", sm: "1rem" },
@@ -558,17 +564,25 @@ export default function Footer() {
                   </Typography>
                   <Box
                     sx={{
-                      mt: 0.5,
-                      py: { xs: 0.5, sm: 0.75 },
-                      px: { xs: 1, sm: 1.5 },
-                      background: "rgba(212, 175, 55, 0.2)",
+                      mt: 0.25,
+                      py: { xs: 0.25, sm: 0.4 },
+                      px: { xs: 0.75, sm: 1 },
+                      background: "rgba(128, 128, 128, 0.15)", // subtle grey
                       backdropFilter: "blur(10px)",
-                      border: "1px solid rgba(212, 175, 55, 0.4)",
+                      border: "1px solid rgba(128, 128, 128, 0.35)",
                       borderRadius: "12px",
                       textAlign: "center",
                       width: "30%",
                       mx: "auto",
-                      boxShadow: "0 8px 32px rgba(212, 175, 55, 0.3)",
+                      boxShadow: "0 6px 24px rgba(0, 0, 0, 0.12)",
+                      cursor: "pointer",
+                      transition: "all 0.25s ease",
+                      "&:hover": {
+                        background: "rgba(128, 128, 128, 0.25)",
+                        boxShadow: "0 10px 32px rgba(0, 0, 0, 0.16)",
+                        backdropFilter: "blur(14px)",
+                        transform: "translateY(-2px)",
+                      },
                     }}
                   >
                     <Typography

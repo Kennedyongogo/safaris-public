@@ -17,8 +17,9 @@ export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const videoRefs = useRef([]);
   const videos = [
-    "/videos/5446310-hd_1920_1080_30fps.mp4",
-    "/videos/4829604-uhd_3840_2160_30fps.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-elephants-in-the-savannah-1542-large.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-giraffes-walking-in-the-savannah-533-large.mp4",
+    "https://assets.mixkit.co/videos/preview/mixkit-lion-resting-in-the-zoo-3297-large.mp4",
   ];
 
   useEffect(() => {
@@ -73,6 +74,11 @@ export default function HeroSection() {
           muted
           playsInline
           preload="auto"
+          crossOrigin="anonymous"
+          poster="/images/safari-about.jpg"
+          onError={() => {
+            console.warn("Hero video failed to load:", video);
+          }}
           sx={{
             position: "absolute",
             width: "100%",
@@ -116,7 +122,7 @@ export default function HeroSection() {
             right: "15%",
             width: "6px",
             height: "6px",
-            background: "rgba(33, 150, 243, 0.8)",
+            background: "rgba(107, 78, 61, 0.8)", // Medium brown
             borderRadius: "50%",
             animation: "float 8s ease-in-out infinite reverse",
           },
@@ -157,7 +163,7 @@ export default function HeroSection() {
                 fontWeight: 700,
                 mb: 2,
                 textShadow: "3px 3px 6px rgba(0,0,0,0.4)",
-                background: "linear-gradient(45deg, #ffffff 30%, #e3f2fd 90%)",
+                background: "linear-gradient(45deg, #E0D8C0 30%, #7B8D57 90%)", // Light beige to olive green
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -174,7 +180,7 @@ export default function HeroSection() {
                 opacity: 0.95,
                 fontWeight: 400,
                 fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.6rem" },
-                color: "#e3f2fd",
+                color: "#7B8D57", // Olive green
               }}
             >
               Discover the Wild Heart of Africa
@@ -202,17 +208,17 @@ export default function HeroSection() {
                   fontWeight: 600,
                   borderRadius: "50px",
                   background:
-                    "linear-gradient(45deg, #2196f3 30%, #21cbf3 90%)",
-                  boxShadow: "0 8px 32px rgba(33, 150, 243, 0.3)",
+                    "linear-gradient(45deg, #B85C38 30%, #C97A5A 90%)", // Rust to light rust
+                  boxShadow: "0 8px 32px rgba(184, 92, 56, 0.3)",
                   transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                   "& .MuiButton-endIcon": {
                     marginLeft: 0.5,
                   },
                   "&:hover": {
                     transform: "translateY(-3px) scale(1.05)",
-                    boxShadow: "0 12px 40px rgba(33, 150, 243, 0.4)",
+                    boxShadow: "0 12px 40px rgba(184, 92, 56, 0.4)",
                     background:
-                      "linear-gradient(45deg, #1976d2 30%, #1cb5e0 90%)",
+                      "linear-gradient(45deg, #8B4225 30%, #B85C38 90%)", // Dark rust to rust
                   },
                   "&:focus": {
                     outline: "none",
@@ -256,10 +262,10 @@ export default function HeroSection() {
                 color: "white",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 cursor: "pointer",
-                "&:hover": {
+                  "&:hover": {
                   transform: "translateY(-8px) scale(1.1)",
                   "& .icon": {
-                    color: "#2196f3",
+                    color: "#6B4E3D", // Medium brown
                     transform: "rotate(360deg)",
                   },
                 },
@@ -284,10 +290,10 @@ export default function HeroSection() {
                 color: "white",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 cursor: "pointer",
-                "&:hover": {
+                  "&:hover": {
                   transform: "translateY(-8px) scale(1.1)",
                   "& .icon": {
-                    color: "#4caf50",
+                    color: "#6B7D47", // Olive green
                     transform: "rotate(360deg)",
                   },
                 },

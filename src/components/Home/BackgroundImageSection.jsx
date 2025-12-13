@@ -87,7 +87,8 @@ export default function BackgroundImageSection() {
   return (
     <Box
       sx={{
-        py: { xs: 1, sm: 1.5, md: 2 },
+        pt: { xs: 0.125, sm: 0.1875, md: 0.25 },
+        pb: { xs: 0.5, sm: 0.75, md: 1 },
         position: "relative",
         zIndex: 1,
         background: "transparent",
@@ -97,7 +98,7 @@ export default function BackgroundImageSection() {
         maxWidth="xl"
         sx={{
           px: { xs: 1.5, sm: 1.5, md: 1.5 },
-          pt: { xs: 1.5, sm: 1.5, md: 1.5 },
+          pt: { xs: 0.375, sm: 0.375, md: 0.375 },
           position: "relative",
           zIndex: 1,
         }}
@@ -108,8 +109,8 @@ export default function BackgroundImageSection() {
             py: { xs: 1.5, sm: 2, md: 2.5 },
             px: { xs: 1.5, sm: 1.5, md: 1.5 },
             borderRadius: { xs: 3, md: 4 },
-            background: "white",
-            border: "1px solid #e0e0e0",
+            background: "#FFFFFF",
+            border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
             minHeight: { xs: "400px", sm: "500px", md: "600px" },
             position: "relative",
             overflow: "hidden",
@@ -218,7 +219,7 @@ export default function BackgroundImageSection() {
                           variant="h6"
                           sx={{
                             fontWeight: 600,
-                            fontSize: { xs: "1.125rem", md: "1.25rem" },
+                            fontSize: { xs: "1.4rem", md: "1.4rem" },
                             mb: 0.5,
                           }}
                         >
@@ -231,7 +232,7 @@ export default function BackgroundImageSection() {
                           size="medium"
                           sx={{
                             "& .MuiRating-iconFilled": {
-                              color: "#ffc107",
+                              color: "#B85C38", // Burnt orange/rust
                             },
                           }}
                         />
@@ -244,7 +245,7 @@ export default function BackgroundImageSection() {
                       sx={{
                         color: "text.secondary",
                         mb: 2.5,
-                        fontSize: { xs: "0.9375rem", md: "1rem" },
+                        fontSize: { xs: "1.4rem", md: "1.4rem" },
                         lineHeight: 1.7,
                         fontStyle: "italic",
                       }}

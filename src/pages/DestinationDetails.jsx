@@ -159,15 +159,15 @@ export default function DestinationDetails() {
   return (
     <Box
       sx={{
-        pt: 1.5,
-        pb: 3,
+        pt: 0.75,
+        pb: 0.75,
         px: 0,
-        bgcolor: "#FAF0E6", // Light beige/cream background
+        bgcolor: "#F5F1E8", // Light beige from palette
         background:
-          "linear-gradient(135deg, rgba(250, 240, 230, 0.95) 0%, rgba(255, 250, 240, 0.98) 50%, rgba(245, 245, 220, 0.95) 100%)",
+          "linear-gradient(135deg, rgba(245, 241, 232, 0.95) 0%, rgba(255, 255, 255, 0.98) 50%, rgba(232, 224, 209, 0.95) 100%)",
         position: "relative",
         overflow: "hidden",
-        minHeight: "100vh",
+        minHeight: "auto",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -176,7 +176,7 @@ export default function DestinationDetails() {
           right: 0,
           bottom: 0,
           background:
-            "radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 140, 66, 0.08) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 80%, rgba(184, 92, 56, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(107, 78, 61, 0.08) 0%, transparent 50%)", // Rust and medium brown
           zIndex: 0,
         },
       }}
@@ -187,7 +187,7 @@ export default function DestinationDetails() {
           position: "relative",
           zIndex: 1,
           px: { xs: 1.5, sm: 1.5, md: 1.5 },
-          pt: { xs: 0.75, sm: 0.75, md: 0.75 },
+          pt: { xs: 0.375, sm: 0.375, md: 0.375 },
         }}
       >
         <MotionBox
@@ -214,12 +214,15 @@ export default function DestinationDetails() {
               }
             }}
             sx={{
-              mb: 1,
-              backgroundColor: "#FF6B35", // Warm orange
+              mb: 0.5,
+              backgroundColor: "#B85C38", // Burnt orange/rust
               color: "white",
               fontWeight: 600,
+              outline: "none",
+              "&:focus": { outline: "none", boxShadow: "none" },
+              "&:focus-visible": { outline: "none", boxShadow: "none" },
               "&:hover": {
-                backgroundColor: "#FF8C42", // Lighter warm orange on hover
+                backgroundColor: "#8B4225", // Dark rust
                 color: "white",
               },
             }}
@@ -230,11 +233,11 @@ export default function DestinationDetails() {
           <Paper
             elevation={3}
             sx={{
-              py: { xs: 1.5, sm: 2, md: 2.5 },
+              py: { xs: 0.75, sm: 1, md: 1.25 },
               px: { xs: 1.5, sm: 1.5, md: 1.5 },
               borderRadius: { xs: 3, md: 4 },
-              background: "white",
-              border: "1px solid #e0e0e0",
+              background: "#FFFFFF",
+              border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
               minHeight: "auto",
               height: "auto",
               overflow: "hidden",
@@ -244,7 +247,7 @@ export default function DestinationDetails() {
             <Box
               sx={{
                 width: "100%",
-                height: { xs: "300px", sm: "400px", md: "500px" },
+                height: { xs: "240px", sm: "320px", md: "420px" },
                 overflow: "hidden",
                 position: "relative",
                 backgroundColor: "#f5f5f5",
@@ -270,8 +273,8 @@ export default function DestinationDetails() {
                   left: 0,
                   right: 0,
                   background:
-                    "linear-gradient(to top, rgba(93, 64, 55, 0.85), rgba(255, 107, 53, 0.3), transparent)",
-                  p: 3,
+                    "linear-gradient(to top, rgba(61, 40, 23, 0.85), rgba(184, 92, 56, 0.3), transparent)", // Dark brown and rust
+                  p: 1.5,
                 }}
               >
                 <Typography
@@ -279,7 +282,7 @@ export default function DestinationDetails() {
                   sx={{
                     color: "white",
                     fontWeight: 700,
-                    fontSize: { xs: "1.75rem", sm: "2.25rem", md: "3rem" },
+                    fontSize: { xs: "2.2rem", sm: "2.6rem", md: "3.2rem" },
                     textShadow: "0 2px 8px rgba(0,0,0,0.5)",
                   }}
                 >
@@ -288,14 +291,14 @@ export default function DestinationDetails() {
               </Box>
             </Box>
 
-            <Box sx={{ p: { xs: 2, sm: 3, md: 4 } }}>
+            <Box sx={{ p: { xs: 1, sm: 1.5, md: 2 } }}>
               {/* Key Information Chips */}
               <Box
                 sx={{
                   display: "flex",
-                  gap: 1,
+                  gap: 0.5,
                   flexWrap: "wrap",
-                  mb: 4,
+                  mb: 2,
                 }}
               >
                 <Chip
@@ -303,7 +306,7 @@ export default function DestinationDetails() {
                   label={destination.location}
                   sx={{
                     fontWeight: 600,
-                    backgroundColor: "#FF6B35", // Warm orange
+                    backgroundColor: "#B85C38", // Burnt orange/rust
                     color: "white",
                     "& .MuiChip-icon": {
                       color: "white",
@@ -316,10 +319,10 @@ export default function DestinationDetails() {
                   variant="outlined"
                   sx={{
                     fontWeight: 600,
-                    borderColor: "#5D4037", // Dark brown
-                    color: "#5D4037",
+                    borderColor: "#3D2817", // Dark brown from palette
+                    color: "#3D2817",
                     "& .MuiChip-icon": {
-                      color: "#5D4037",
+                      color: "#3D2817",
                     },
                   }}
                 />
@@ -329,10 +332,10 @@ export default function DestinationDetails() {
                   variant="outlined"
                   sx={{
                     fontWeight: 600,
-                    borderColor: "#FF8C42", // Warm orange
-                    color: "#5D4037",
+                    borderColor: "#B85C38", // Burnt orange/rust
+                    color: "#3D2817",
                     "& .MuiChip-icon": {
-                      color: "#FF8C42",
+                      color: "#B85C38",
                     },
                   }}
                 />
@@ -342,9 +345,10 @@ export default function DestinationDetails() {
               <Typography
                 variant="h5"
                 sx={{
-                  fontWeight: 600,
-                  mb: 2,
-                  color: "#5D4037", // Dark brown
+                  fontWeight: 700,
+                  mb: 1,
+                  color: "#3D2817", // Dark brown from palette
+                  fontSize: { xs: "1.35rem", sm: "1.5rem", md: "1.65rem" },
                 }}
               >
                 About This Destination
@@ -354,8 +358,9 @@ export default function DestinationDetails() {
                 sx={{
                   lineHeight: 1.8,
                   color: "text.secondary",
-                  mb: 4,
-                  fontSize: { xs: "0.95rem", sm: "1rem" },
+                  mb: 2,
+                  fontSize: { xs: "1.05rem", sm: "1.15rem" },
+                  fontWeight: 600,
                 }}
               >
                 {destination.description}
@@ -364,7 +369,7 @@ export default function DestinationDetails() {
               <Box
                 sx={{
                   display: "flex",
-                  gap: 2,
+                  gap: 1,
                   width: "100%",
                   alignItems: "stretch",
                 }}
@@ -375,17 +380,25 @@ export default function DestinationDetails() {
                     flex: 1,
                     display: "flex",
                     flexDirection: "column",
-                    backgroundColor: "#FAF0E6", // Light beige
-                    border: "1px solid #D4A574", // Warm brown border
+                    backgroundColor: "#F5F1E8", // Light beige from palette
+                    border: "1px solid rgba(107, 78, 61, 0.3)", // Medium brown border
                   }}
                 >
-                  <CardContent sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                  <CardContent
+                    sx={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      p: { xs: 1.25, sm: 1.5 },
+                    }}
+                  >
                     <Typography
                       variant="h6"
                       sx={{
-                        fontWeight: 600,
-                        mb: 2,
-                        color: "#5D4037", // Dark brown
+                        fontWeight: 700,
+                        mb: 1,
+                        color: "#3D2817", // Dark brown from palette
+                        fontSize: { xs: "1.2rem", md: "1.35rem" },
                       }}
                     >
                       Wildlife
@@ -394,8 +407,8 @@ export default function DestinationDetails() {
                       label={destination.wildlife}
                       sx={{
                         fontWeight: 600,
-                        fontSize: "0.95rem",
-                        backgroundColor: "#FF8C42", // Warm orange
+                        fontSize: "1rem",
+                        backgroundColor: "#B85C38", // Burnt orange/rust
                         color: "white",
                       }}
                     />
@@ -408,17 +421,25 @@ export default function DestinationDetails() {
                     flex: 1,
                     display: "flex",
                     flexDirection: "column",
-                    backgroundColor: "#FAF0E6", // Light beige
-                    border: "1px solid #D4A574", // Warm brown border
+                    backgroundColor: "#F5F1E8", // Light beige from palette
+                    border: "1px solid rgba(107, 78, 61, 0.3)", // Medium brown border
                   }}
                 >
-                  <CardContent sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                  <CardContent
+                    sx={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      p: { xs: 1.25, sm: 1.5 },
+                    }}
+                  >
                     <Typography
                       variant="h6"
                       sx={{
-                        fontWeight: 600,
-                        mb: 2,
-                        color: "#5D4037", // Dark brown
+                        fontWeight: 700,
+                        mb: 1,
+                        color: "#3D2817", // Dark brown from palette
+                        fontSize: { xs: "1.2rem", md: "1.35rem" },
                       }}
                     >
                       Highlights
@@ -430,9 +451,11 @@ export default function DestinationDetails() {
                           component="li"
                           variant="body1"
                           sx={{
-                            mb: 1,
+                            mb: 0.5,
                             color: "text.secondary",
                             lineHeight: 1.7,
+                            fontSize: { xs: "1.05rem", md: "1.1rem" },
+                            fontWeight: 600,
                           }}
                         >
                           {highlight}
@@ -446,19 +469,20 @@ export default function DestinationDetails() {
               {/* Call to Action */}
               <Box
                 sx={{
-                  mt: 4,
+                  mt: 2,
                   textAlign: "center",
-                  p: 3,
-                  background: "linear-gradient(135deg, #FF6B35, #FF8C42)", // Warm orange gradient
+                  p: 1.5,
+                  background: "linear-gradient(135deg, #B85C38, #C97A5A)", // Rust to light rust
                   borderRadius: 2,
                 }}
               >
                 <Typography
                   variant="h6"
                   sx={{
-                    fontWeight: 600,
-                    mb: 2,
+                    fontWeight: 700,
+                    mb: 1,
                     color: "white",
+                    fontSize: { xs: "1.3rem", md: "1.45rem" },
                   }}
                 >
                   Ready to Experience This Destination?
@@ -466,15 +490,20 @@ export default function DestinationDetails() {
                 <Button
                   variant="contained"
                   size="large"
+                  onClick={() => navigate("/plan", { state: { from: "destination-detail", destinationId: destination.id } })}
                   sx={{
                     backgroundColor: "white",
-                    color: "#5D4037", // Dark brown
-                    fontWeight: 600,
-                    px: 4,
-                    py: 1.5,
+                    color: "#3D2817", // Dark brown from palette
+                    fontWeight: 700,
+                    fontSize: { xs: "1.05rem", md: "1.1rem" },
+                    px: 3,
+                    py: 1.25,
+                    outline: "none",
+                    "&:focus": { outline: "none" },
+                    "&:focus-visible": { outline: "none", boxShadow: "none" },
                     "&:hover": {
-                      backgroundColor: "#FAF0E6", // Light beige
-                      color: "#5D4037",
+                      backgroundColor: "#F5F1E8", // Light beige from palette
+                      color: "#3D2817",
                     },
                   }}
                 >

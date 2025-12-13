@@ -30,6 +30,10 @@ import {
   Groups,
   RateReview,
   Place,
+  Inventory,
+  Explore,
+  Cabin,
+  Hotel,
 } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -47,32 +51,50 @@ export default function PublicHeader() {
         label: "Home",
         icon: <Home />,
         sectionId: "hero-section",
-        color: "#2196f3",
+        color: "#6B4E3D", // Medium brown
       },
       {
         label: "Destinations",
         icon: <Place />,
         sectionId: "mission-section",
         route: "/destinations",
-        color: "#e91e63",
-      },
-      {
-        label: "Start Planning",
-        icon: <LocalHospital />,
-        route: "/plan",
-        color: "#607d8b",
-      },
-      {
-        label: "Reviews",
-        icon: <RateReview />,
-        route: "/reviews",
-        color: "#ff9800",
+        color: "#6B7D47", // Olive green
       },
       {
         label: "About Us",
         icon: <Groups />,
         route: "/team",
-        color: "#9c27b0",
+        color: "#B85C38", // Burnt orange/rust
+      },
+      {
+        label: "Packages",
+        icon: <Inventory />,
+        route: "/packages",
+        color: "#6B4E3D", // Medium brown
+      },
+      {
+        label: "Tour",
+        icon: <Explore />,
+        route: "/tour",
+        color: "#B85C38", // Burnt orange/rust
+      },
+      {
+        label: "Camp & Lodges",
+        icon: <Cabin />,
+        route: "/camp-lodges",
+        color: "#6B7D47", // Olive green
+      },
+      {
+        label: "Start Planning",
+        icon: <LocalHospital />,
+        route: "/plan",
+        color: "#B85C38", // Burnt orange/rust
+      },
+      {
+        label: "Reviews",
+        icon: <RateReview />,
+        route: "/reviews",
+        color: "#2D4A2D", // Dark forest green
       },
     ],
     []
@@ -192,15 +214,15 @@ export default function PublicHeader() {
         elevation={0}
         sx={{
           backgroundColor: scrolled
-            ? "rgba(255, 255, 255, 0.95)"
-            : "rgba(0, 0, 0, 0.2)",
+            ? "rgba(245, 241, 232, 0.95)" // Light beige with transparency
+            : "rgba(61, 40, 23, 0.3)", // Dark brown with transparency
           backdropFilter: scrolled ? "blur(20px)" : "blur(10px)",
           boxShadow: scrolled
-            ? "0 8px 32px rgba(0, 0, 0, 0.12)"
+            ? "0 8px 32px rgba(61, 40, 23, 0.12)"
             : "0 4px 20px rgba(0, 0, 0, 0.1)",
           transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
           borderBottom: scrolled
-            ? "1px solid rgba(33, 150, 243, 0.1)"
+            ? "1px solid rgba(107, 78, 61, 0.2)" // Medium brown border
             : "1px solid rgba(255, 255, 255, 0.1)",
         }}
       >
@@ -228,7 +250,7 @@ export default function PublicHeader() {
                 onClick={() => navigate("/")}
               >
                 <img
-                  src="/dave.png"
+                  src="/IMG-20251210-WA0070.jpg"
                   alt="Akira Safaris Logo"
                   style={{
                     height: scrolled ? "56px" : "64px",
@@ -251,8 +273,8 @@ export default function PublicHeader() {
                         ? "none"
                         : "2px 2px 4px rgba(0,0,0,0.3)",
                       background: scrolled
-                        ? "linear-gradient(45deg, #2196f3, #1976d2)"
-                        : "linear-gradient(45deg, #ffffff, #e3f2fd)",
+                        ? "linear-gradient(45deg, #6B4E3D, #3D2817)" // Medium to dark brown
+                        : "linear-gradient(45deg, #ffffff, #F5F1E8)", // White to light beige
                       backgroundClip: "text",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
@@ -398,7 +420,7 @@ export default function PublicHeader() {
                 sx={{
                   display: { xs: "flex", md: "none" },
                   color: mobileMenuOpen
-                    ? "#2196f3"
+                    ? "#6B4E3D" // Medium brown
                     : scrolled
                       ? "primary.main"
                       : "white",
@@ -406,33 +428,34 @@ export default function PublicHeader() {
                   borderRadius: "12px",
                   backgroundColor: mobileMenuOpen
                     ? scrolled
-                      ? "rgba(33, 150, 243, 0.2)"
-                      : "rgba(33, 150, 243, 0.3)"
+                      ? "rgba(107, 78, 61, 0.2)" // Medium brown with transparency
+                      : "rgba(107, 78, 61, 0.3)"
                     : "transparent",
                   "&:focus": {
                     outline: "none",
                     backgroundColor: mobileMenuOpen
                       ? scrolled
-                        ? "rgba(33, 150, 243, 0.2)"
-                        : "rgba(33, 150, 243, 0.3)"
+                        ? "rgba(107, 78, 61, 0.2)"
+                        : "rgba(107, 78, 61, 0.3)"
                       : "transparent",
                   },
                   "&:focus-visible": {
                     outline: "none",
+                    boxShadow: "none",
                   },
                   "&:hover": {
                     backgroundColor: mobileMenuOpen
                       ? scrolled
-                        ? "rgba(33, 150, 243, 0.25)"
-                        : "rgba(33, 150, 243, 0.35)"
+                        ? "rgba(107, 78, 61, 0.25)"
+                        : "rgba(107, 78, 61, 0.35)"
                       : scrolled
-                        ? "rgba(33, 150, 243, 0.1)"
+                        ? "rgba(107, 78, 61, 0.1)"
                         : "rgba(255, 255, 255, 0.15)",
                     transform: mobileMenuOpen
                       ? "scale(1.05)"
                       : "rotate(90deg) scale(1.1)",
                     boxShadow: scrolled
-                      ? "0 8px 25px rgba(33, 150, 243, 0.3)"
+                      ? "0 8px 25px rgba(107, 78, 61, 0.3)"
                       : "0 8px 25px rgba(255, 255, 255, 0.2)",
                   },
                 }}
@@ -453,15 +476,17 @@ export default function PublicHeader() {
         sx={{
           "& .MuiDrawer-paper": {
             width: { xs: "280px", sm: "320px" },
-            backgroundColor: "background.paper",
+            backgroundColor: "background.default", // Light beige
             backgroundImage:
-              "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)",
+              "linear-gradient(135deg, rgba(245, 241, 232, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%)",
             backdropFilter: "blur(20px)",
-            borderLeft: "1px solid rgba(33, 150, 243, 0.1)",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)",
+            borderLeft: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
+            boxShadow: "0 8px 32px rgba(61, 40, 23, 0.12)",
             height: "auto",
-            top: "80px",
+            maxHeight: { xs: "calc(100vh - 70px)", sm: "calc(100vh - 80px)" },
+            top: { xs: "64px", sm: "72px" },
             bottom: "auto",
+            overflowY: "auto",
           },
         }}
       >
@@ -478,7 +503,7 @@ export default function PublicHeader() {
               variant="h6"
               sx={{
                 fontWeight: 700,
-                background: "linear-gradient(45deg, #2196f3, #1976d2)",
+                background: "linear-gradient(45deg, #6B4E3D, #3D2817)", // Medium to dark brown
                 backgroundClip: "text",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
@@ -490,19 +515,21 @@ export default function PublicHeader() {
             <IconButton
               onClick={() => setMobileMenuOpen(false)}
               size="small"
-              sx={{
-                transition: "all 0.3s ease",
-                borderRadius: "8px",
-                "&:hover": {
-                  transform: "rotate(90deg)",
-                  backgroundColor: "rgba(33, 150, 243, 0.1)",
-                },
-              }}
+                sx={{
+                  transition: "all 0.3s ease",
+                  borderRadius: "8px",
+                  "&:focus": { outline: "none" },
+                  "&:focus-visible": { outline: "none", boxShadow: "none" },
+                  "&:hover": {
+                    transform: "rotate(90deg)",
+                    backgroundColor: "rgba(107, 78, 61, 0.1)", // Medium brown
+                  },
+                }}
             >
               <Close fontSize="small" />
             </IconButton>
           </Box>
-          <Divider sx={{ mb: 2, borderColor: "rgba(33, 150, 243, 0.2)" }} />
+          <Divider sx={{ mb: 2, borderColor: "rgba(107, 78, 61, 0.2)" }} />
           <List sx={{ py: 0 }}>
             {navItems.map((item, index) => {
               const isActiveItem =

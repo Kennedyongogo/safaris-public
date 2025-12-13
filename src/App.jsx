@@ -5,12 +5,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import {
-  ThemeProvider,
-  CssBaseline,
-  Box,
-  CircularProgress,
-} from "@mui/material";
+import { ThemeProvider, CssBaseline, LinearProgress } from "@mui/material";
 import { theme } from "./theme";
 import "./App.css";
 import React, { useState, useEffect, Suspense, lazy } from "react";
@@ -26,6 +21,10 @@ const Reviews = lazy(() => import("./pages/Reviews"));
 const Plan = lazy(() => import("./pages/Plan"));
 const DestinationDetails = lazy(() => import("./pages/DestinationDetails"));
 const Destinations = lazy(() => import("./pages/Destinations"));
+const CampLodges = lazy(() => import("./pages/CampLodges"));
+const CampLodgeDetail = lazy(() => import("./pages/CampLodgeDetail"));
+const Packages = lazy(() => import("./pages/Packages"));
+const Tour = lazy(() => import("./pages/Tour"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -53,19 +52,21 @@ function App() {
       <CssBaseline />
       <Router>
         <ScrollToTop />
+        <PublicHeader />
         <Suspense
           fallback={
-            <Box
+            <LinearProgress
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                backgroundColor: "white",
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                zIndex: 1400,
+                "& .MuiLinearProgress-bar": {
+                  transition: "transform 0.2s ease",
+                },
               }}
-            >
-              <CircularProgress />
-            </Box>
+            />
           }
         >
           <Routes>
@@ -73,17 +74,13 @@ function App() {
             <Route
               path="/"
               element={
-                <>
-                  <PublicHeader />
-                  <Home />
-                </>
+                <Home />
               }
             />
             <Route
               path="/team"
               element={
                 <>
-                  <PublicHeader />
                   <Team />
                   <Footer />
                 </>
@@ -93,7 +90,6 @@ function App() {
               path="/team/:id"
               element={
                 <>
-                  <PublicHeader />
                   <TeamMemberDetail />
                   <Footer />
                 </>
@@ -103,7 +99,6 @@ function App() {
               path="/reviews"
               element={
                 <>
-                  <PublicHeader />
                   <Reviews />
                   <Footer />
                 </>
@@ -113,7 +108,6 @@ function App() {
               path="/plan"
               element={
                 <>
-                  <PublicHeader />
                   <Plan />
                   <Footer />
                 </>
@@ -123,7 +117,6 @@ function App() {
               path="/destinations"
               element={
                 <>
-                  <PublicHeader />
                   <Destinations />
                   <Footer />
                 </>
@@ -133,8 +126,43 @@ function App() {
               path="/destination/:id"
               element={
                 <>
-                  <PublicHeader />
                   <DestinationDetails />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/camp-lodges"
+              element={
+                <>
+                  <CampLodges />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/camp-lodges/:id"
+              element={
+                <>
+                  <CampLodgeDetail />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/packages"
+              element={
+                <>
+                  <Packages />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/tour"
+              element={
+                <>
+                  <Tour />
                   <Footer />
                 </>
               }

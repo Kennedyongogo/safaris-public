@@ -150,14 +150,14 @@ export default function Reviews() {
     <Box
       sx={{
         pt: 1.5,
-        pb: 3,
+        pb: 1.5,
         px: 0,
-        bgcolor: "#FAF0E6", // Light beige/cream background
+        bgcolor: "#F5F1E8", // Light beige from palette
         background:
-          "linear-gradient(135deg, rgba(250, 240, 230, 0.95) 0%, rgba(255, 250, 240, 0.98) 50%, rgba(245, 245, 220, 0.95) 100%)",
+          "linear-gradient(135deg, rgba(245, 241, 232, 0.95) 0%, rgba(255, 255, 255, 0.98) 50%, rgba(232, 224, 209, 0.95) 100%)",
         position: "relative",
         overflow: "hidden",
-        minHeight: "100vh",
+        minHeight: "auto",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -166,7 +166,7 @@ export default function Reviews() {
           right: 0,
           bottom: 0,
           background:
-            "radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 140, 66, 0.08) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 80%, rgba(184, 92, 56, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(107, 78, 61, 0.08) 0%, transparent 50%)", // Rust and medium brown
           zIndex: 0,
         },
       }}
@@ -191,8 +191,8 @@ export default function Reviews() {
               py: { xs: 1.5, sm: 2, md: 2.5 },
               px: { xs: 1.5, sm: 1.5, md: 1.5 },
               borderRadius: { xs: 3, md: 4 },
-              background: "white",
-              border: "1px solid #e0e0e0",
+              background: "#FFFFFF",
+              border: "1px solid rgba(107, 78, 61, 0.2)", // Medium brown border
               minHeight: "auto",
               height: "auto",
               overflow: "hidden",
@@ -207,7 +207,7 @@ export default function Reviews() {
                   fontWeight: 800,
                   fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2.2rem" },
                   background:
-                    "linear-gradient(45deg, #FF6B35, #FF8C42, #5D4037)",
+                    "linear-gradient(45deg, #6B4E3D, #B85C38, #3D2817)", // Medium brown, rust, dark brown
                   backgroundClip: "text",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -221,7 +221,7 @@ export default function Reviews() {
                     transform: "translateX(-50%)",
                     width: { xs: "60px", sm: "70px", md: "80px" },
                     height: "4px",
-                    background: "linear-gradient(45deg, #FF6B35, #FF8C42)",
+                    background: "linear-gradient(45deg, #6B4E3D, #B85C38)", // Medium brown to rust
                     borderRadius: "2px",
                   },
                 }}
@@ -238,7 +238,7 @@ export default function Reviews() {
                   fontWeight: 500,
                   fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1rem" },
                   lineHeight: 1.6,
-                  color: "#5D4037",
+                  color: "#3D2817", // Dark brown from palette
                 }}
               >
                 Read what our guests have to say about their safari experiences
@@ -311,9 +311,9 @@ export default function Reviews() {
                             precision={0.5}
                             size="small"
                             sx={{
-                              "& .MuiRating-iconFilled": {
-                                color: "#ffc107",
-                              },
+                            "& .MuiRating-iconFilled": {
+                                color: "#B85C38", // Burnt orange/rust
+                            },
                             }}
                           />
                         </Box>
@@ -324,9 +324,10 @@ export default function Reviews() {
                           sx={{
                             color: "text.secondary",
                             mb: 2,
-                            fontSize: { xs: "0.875rem", md: "0.9375rem" },
+                            fontSize: { xs: "0.95rem", md: "1rem" },
                             lineHeight: 1.6,
                             fontStyle: "italic",
+                            fontWeight: 600,
                             flexGrow: 1,
                             display: "-webkit-box",
                             WebkitLineClamp: 4,
@@ -357,15 +358,15 @@ export default function Reviews() {
                             <LocationOn
                               sx={{
                                 fontSize: { xs: 16, md: 18 },
-                                color: "#FF6B35",
+                                color: "#6B4E3D", // Medium brown
                               }}
                             />
                             <Typography
                               variant="caption"
                               sx={{
-                                fontSize: { xs: "0.75rem", md: "0.8125rem" },
+                                fontSize: { xs: "0.85rem", md: "0.95rem" },
                                 color: "text.secondary",
-                                fontWeight: 500,
+                                fontWeight: 600,
                               }}
                             >
                               {review.destination}
@@ -387,8 +388,9 @@ export default function Reviews() {
                             <Typography
                               variant="caption"
                               sx={{
-                                fontSize: { xs: "0.75rem", md: "0.8125rem" },
+                                fontSize: { xs: "0.85rem", md: "0.95rem" },
                                 color: "text.secondary",
+                                fontWeight: 600,
                               }}
                             >
                               {review.date}
@@ -419,7 +421,7 @@ export default function Reviews() {
                     mb: 1,
                     fontWeight: 700,
                     fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" },
-                    color: "#5D4037",
+                    color: "#3D2817", // Dark brown from palette
                     textAlign: "center",
                   }}
                 >
@@ -534,7 +536,7 @@ export default function Reviews() {
                           size="large"
                           sx={{
                             "& .MuiRating-iconFilled": {
-                              color: "#ffc107",
+                                color: "#B85C38", // Burnt orange/rust
                             },
                           }}
                         />
@@ -569,10 +571,10 @@ export default function Reviews() {
                             checked={formData.recommend}
                             onChange={(e) => handleInputChange("recommend", e.target.checked)}
                             sx={{
-                              color: "#FF6B35",
-                              "&.Mui-checked": {
-                                color: "#FF6B35",
-                              },
+                            color: "#B85C38", // Burnt orange/rust
+                            "&.Mui-checked": {
+                              color: "#B85C38",
+                            },
                             }}
                           />
                         }
@@ -600,7 +602,7 @@ export default function Reviews() {
                           endIcon={loading ? <CircularProgress size={20} color="inherit" /> : <Send />}
                           disabled={loading || !formData.name || !formData.email || !formData.comment || formData.rating === 0}
                           sx={{
-                            backgroundColor: "#FF6B35",
+                            backgroundColor: "#B85C38", // Burnt orange/rust
                             color: "white",
                             px: { xs: 4, sm: 5, md: 6 },
                             py: { xs: 1.25, sm: 1.5 },
@@ -608,10 +610,10 @@ export default function Reviews() {
                             fontSize: { xs: "0.875rem", md: "1rem" },
                             fontWeight: 600,
                             textTransform: "none",
-                            boxShadow: "0 4px 12px rgba(255, 107, 53, 0.3)",
+                            boxShadow: "0 4px 12px rgba(184, 92, 56, 0.3)",
                             "&:hover": {
-                              backgroundColor: "#FF8C42",
-                              boxShadow: "0 6px 16px rgba(255, 107, 53, 0.4)",
+                              backgroundColor: "#8B4225", // Dark rust
+                              boxShadow: "0 6px 16px rgba(184, 92, 56, 0.4)",
                               transform: "translateY(-2px)",
                             },
                             "&:disabled": {
